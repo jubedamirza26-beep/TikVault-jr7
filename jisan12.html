@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="gold" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07070a">
+<title>TikVault — Universal TikTok & Douyin Downloader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   CSS CUSTOM PROPERTIES & CONTRAST-CHECKED THEME TOKENS
+   ========================================================================== */
+:root {
+  --bg: #07070a;
+  --card: #111116;
+  --card2: #181820;
+  --tx: #f4f4f7;
+  --mu: #a1a1aa;
+  --dim: #71717a;
+  --ar: 212, 175, 55;
+  --bd: rgba(var(--ar), 0.22);
+  --a1: #d4af37;
+  --a2: #fef08a;
+  --a3: #854d0e;
+  --a1t: #fef08a;
+  --a2t: #d4af37;
+  --g: linear-gradient(135deg, var(--a2), var(--a1) 50%, var(--a3));
+  --track: rgba(var(--ar), 0.15);
+  --sw-off: #27272a;
+  --red: #ef4444;
+  --ok: #10b981;
+  --top: env(safe-area-inset-top, 0px);
+  --bot: env(safe-area-inset-bottom, 0px);
+  --sans: 'Plus Jakarta Sans', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+  --serif: 'Fraunces', Georgia, serif;
+}
+
+[data-mode="light"] {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --card2: #f1f5f9;
+  --tx: #09090b;
+  --mu: #475569;
+  --dim: #64748b;
+  --bd: rgba(var(--ar), 0.28);
+  --track: rgba(var(--ar), 0.18);
+  --sw-off: #cbd5e1;
+}
+
+[data-theme="gold"] { --ar: 212, 175, 55; --a1: #d4af37; --a2: #fef08a; --a3: #854d0e; --a1t: #fef08a; --a2t: #d4af37; }
+[data-mode="light"][data-theme="gold"] { --a1: #b8860b; --a2: #7a580b; --a3: #4a3403; --a1t: #854d0e; --a2t: #713f12; }
+
+[data-theme="emerald"] { --ar: 52, 211, 153; --a1: #34d399; --a2: #a7f3d0; --a3: #065f46; --a1t: #a7f3d0; --a2t: #34d399; }
+[data-mode="light"][data-theme="emerald"] { --a1: #059669; --a2: #047857; --a3: #064e3b; --a1t: #065f46; --a2t: #047857; }
+
+[data-theme="violet"] { --ar: 167, 139, 250; --a1: #a78bfa; --a2: #ddd6fe; --a3: #5b21b6; --a1t: #ddd6fe; --a2t: #a78bfa; }
+[data-mode="light"][data-theme="violet"] { --a1: #7c3aed; --a2: #6d28d9; --a3: #4c1d95; --a1t: #5b21b6; --a2t: #4c1d95; }
+
+[data-theme="rose"] { --ar: 251, 113, 133; --a1: #fb7185; --a2: #fecdd3; --a3: #9f1239; --a1t: #fecdd3; --a2t: #fb7185; }
+[data-mode="light"][data-theme="rose"] { --a1: #e11d48; --a2: #be123c; --a3: #881337; --a1t: #9f1239; --a2t: #881337; }
+
+[data-theme="ocean"] { --ar: 56, 189, 248; --a1: #38bdf8; --a2: #bae6fd; --a3: #0369a1; --a1t: #bae6fd; --a2t: #38bdf8; }
+[data-mode="light"][data-theme="ocean"] { --a1: #0284c7; --a2: #0369a1; --a3: #075985; --a1t: #0369a1; --a2t: #075985; }
+
+[data-theme="sunset"] { --ar: 251, 146, 60; --a1: #fb923c; --a2: #fed7aa; --a3: #9a3412; --a1t: #fed7aa; --a2t: #fb923c; }
+[data-mode="light"][data-theme="sunset"] { --a1: #ea580c; --a2: #c2410c; --a3: #7c2d12; --a1t: #9a3412; --a2t: #7c2d12; }
+
+[data-theme="crimson"] { --ar: 239, 68, 68; --a1: #ef4444; --a2: #fecaca; --a3: #991b1b; --a1t: #fecaca; --a2t: #ef4444; }
+[data-mode="light"][data-theme="crimson"] { --a1: #dc2626; --a2: #b91c1c; --a3: #7f1d1d; --a1t: #991b1b; --a2t: #7f1d1d; }
+
+[data-theme="neon"] { --ar: 163, 230, 53; --a1: #a3e635; --a2: #d9f99d; --a3: #3f6212; --a1t: #d9f99d; --a2t: #a3e635; }
+[data-mode="light"][data-theme="neon"] { --a1: #65a30d; --a2: #4d7c0f; --a3: #365314; --a1t: #3f6212; --a2t: #365314; }
+
+[data-theme="mono"] { --ar: 228, 228, 231; --a1: #e4e4e7; --a2: #ffffff; --a3: #52525b; --a1t: #ffffff; --a2t: #e4e4e7; }
+[data-mode="light"][data-theme="mono"] { --ar: 39, 39, 42; --a1: #27272a; --a2: #18181b; --a3: #09090b; --a1t: #09090b; --a2t: #27272a; }
+
+/* ==========================================================================
+   BASE & RESET STYLES
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { background: var(--bg); color: var(--tx); font-family: var(--sans); height: 100%; -webkit-text-size-adjust: 100%; }
+body { min-height: 100%; overflow-x: hidden; position: relative; background: radial-gradient(850px 420px at 50% -80px, rgba(var(--ar), 0.13), transparent 75%), var(--bg); font-size: 14px; line-height: 1.5; }
+input, button, textarea { font-family: inherit; color: inherit; }
+button { cursor: pointer; border: 0; background: none; }
+:focus-visible { outline: 2px solid var(--a1); outline-offset: 2px; }
+body.rm * { animation: none !important; transition: none !important; }
+
+/* Canvas & Ambient Glow */
+#dust { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.55; }
+.orb { position: fixed; top: -130px; left: 50%; width: 540px; height: 540px; margin-left: -270px; border-radius: 50%; background: radial-gradient(circle, rgba(var(--ar), 0.22), transparent 65%); pointer-events: none; z-index: 0; animation: fl 10s ease-in-out infinite alternate; }
+@keyframes fl { to { transform: translateY(40px) scale(1.08); } }
+
+/* Floating Capsule Header */
+.top { position: fixed; top: calc(var(--top) + 8px); left: 0; right: 0; z-index: 60; display: flex; justify-content: center; padding: 0 12px; }
+.bar { width: 100%; max-width: 620px; height: 54px; background: rgba(17,17,22,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--bd); border-radius: 99px; display: flex; align-items: center; justify-content: space-between; padding: 0 10px 0 16px; box-shadow: 0 14px 35px rgba(0,0,0,0.4); }
+[data-mode="light"] .bar { background: rgba(255,255,255,0.88); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+.brand { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 16px; }
+.brand svg { width: 24px; height: 24px; stroke: var(--a1); fill: none; stroke-width: 2.2; }
+.brand b { background: var(--g); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.ib { width: 38px; height: 38px; min-width: 38px; min-height: 38px; border-radius: 50%; display: grid; place-items: center; color: var(--mu); transition: color 0.2s, border-color 0.2s; border: 1px solid transparent; }
+.ib:hover { color: var(--a1t); border-color: var(--bd); }
+.ib svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* Main Stage & Views */
+main { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; padding: calc(var(--top) + 74px) 14px calc(var(--bot) + 90px); }
+.view { display: none; }
+.view.on { display: block; animation: fadeUp 0.26s cubic-bezier(0.16,1,0.3,1); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* Hero */
+.hero { text-align: center; margin: 10px 0 20px; }
+.hero h1 { font: 700 clamp(28px, 8vw, 42px)/1.12 var(--serif); letter-spacing: -0.5px; }
+.hero h1 em { font-style: italic; background: var(--g); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--mu); margin-top: 8px; font-size: 13.5px; }
+
+/* Primary Input Box */
+.box { background: var(--card); border: 1px solid var(--bd); border-radius: 20px; padding: 16px; box-shadow: 0 16px 44px rgba(0,0,0,0.25); transition: border-color 0.2s, box-shadow 0.2s; }
+.box:focus-within { border-color: rgba(var(--ar), 0.6); box-shadow: 0 0 32px rgba(var(--ar), 0.18); }
+.row { display: flex; align-items: center; gap: 10px; }
+.row input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: var(--tx); font-size: 15px; padding: 6px 0; }
+.row input::placeholder { color: var(--dim); }
+.pill { background: rgba(var(--ar), 0.1); border: 1px solid var(--bd); color: var(--tx); border-radius: 99px; padding: 6px 14px; font-size: 12px; font-weight: 600; white-space: nowrap; transition: 0.2s; min-height: 36px; display: inline-flex; align-items: center; justify-content: center; }
+.pill:hover { border-color: var(--a1); color: var(--a1t); background: rgba(var(--ar), 0.18); }
+.btn { width: 100%; height: 50px; min-height: 44px; margin-top: 12px; border-radius: 14px; background: var(--g); color: #08080a; font-weight: 700; font-size: 14.5px; letter-spacing: 0.3px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 24px rgba(var(--ar), 0.26); position: relative; overflow: hidden; transition: transform 0.15s, filter 0.2s; }
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
+.btn.alt { background: var(--card2); color: var(--tx); border: 1px solid var(--bd); box-shadow: none; }
+.btn.alt:hover { border-color: var(--a1); color: var(--a1t); }
+
+/* Steps & Badges */
+.feat { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+.feat span { font-size: 12px; font-weight: 600; color: var(--mu); padding: 6px 14px; border-radius: 99px; background: var(--card); border: 1px solid var(--bd); }
+.steps { display: grid; gap: 10px; margin-top: 18px; }
+.step { display: flex; gap: 14px; align-items: center; padding: 13px 16px; border-radius: 16px; background: var(--card); border: 1px solid var(--bd); }
+.step i { width: 38px; height: 38px; min-width: 38px; border-radius: 11px; display: grid; place-items: center; background: rgba(var(--ar), 0.12); border: 1px solid var(--bd); flex-shrink: 0; }
+.step i svg { width: 18px; height: 18px; stroke: var(--a1); fill: none; stroke-width: 2; }
+.step b { display: block; font-size: 13.5px; }
+.step small { color: var(--mu); font-size: 12px; }
+
+/* Notice / Loading Skeleton */
+.notice { display: none; margin: 14px 0 0; padding: 14px 16px; border-radius: 14px; background: rgba(239,68,68,0.12); border: 1px solid var(--red); color: #fca5a5; font-size: 13px; }
+.notice .row { margin-top: 10px; justify-content: center; }
+.load { display: none; text-align: center; padding: 24px 0; }
+.spin { width: 38px; height: 38px; margin: 0 auto 12px; border-radius: 50%; border: 3px solid rgba(var(--ar), 0.2); border-top-color: var(--a1); animation: sp 1s linear infinite; }
+@keyframes sp { to { transform: rotate(360deg); } }
+.sk { height: 220px; max-height: 40vh; margin-top: 14px; border-radius: 18px; background: linear-gradient(110deg, var(--card) 8%, var(--card2) 22%, var(--card) 38%); background-size: 200% 100%; animation: sh 1.6s linear infinite; }
+@keyframes sh { to { background-position: -200% 0; } }
+
+/* Media Stage (Player & Carousel) */
+.stage { display: none; margin-top: 16px; gap: 16px; flex-direction: column; }
+.player { border-radius: 20px; overflow: hidden; background: #000; border: 1px solid var(--bd); position: relative; box-shadow: 0 18px 45px rgba(0,0,0,0.5), 0 0 32px rgba(var(--ar), 0.08); }
+.player video { width: 100%; max-height: 480px; display: block; background: #000; }
+.slides { display: none; position: relative; }
+.sl { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.sl::-webkit-scrollbar { display: none; }
+.sl div { flex: 0 0 100%; scroll-snap-align: center; display: grid; place-items: center; background: #000; }
+.sl img { max-width: 100%; max-height: 460px; display: block; object-fit: contain; }
+.cnt { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); border: 1px solid var(--bd); font-size: 11.5px; font-weight: 700; padding: 4px 11px; border-radius: 99px; color: #fff; z-index: 2; }
+[dir="rtl"] .cnt { right: auto; left: 12px; }
+.sl-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.65); border: 1px solid var(--bd); color: #fff; display: grid; place-items: center; z-index: 3; font-size: 18px; }
+.sl-prev { left: 10px; }
+.sl-next { right: 10px; }
+[dir="rtl"] .sl-prev { left: auto; right: 10px; }
+[dir="rtl"] .sl-next { right: auto; left: 10px; }
+
+/* Creator Row & Stats */
+.creator { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+.creator a { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; min-width: 0; }
+.creator img { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--a1); object-fit: cover; background: var(--card2); }
+.creator strong { display: block; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.creator small { color: var(--a2t); font-size: 12px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 12px; background: var(--card); border: 1px solid var(--bd); border-radius: 16px; text-align: center; font-size: 11px; color: var(--mu); margin-top: 12px; }
+.stats b { display: block; color: var(--tx); font-size: 14.5px; }
+
+/* ==========================================================================
+   ⭐ 1-CLICK INSTANT DOWNLOAD HERO SECTION (DIRECT ONE TAP)
+   ========================================================================== */
+.quick-dl-hero { background: var(--card); border: 1.5px solid rgba(var(--ar), 0.45); border-radius: 20px; padding: 16px; box-shadow: 0 14px 40px rgba(0,0,0,0.35), 0 0 28px rgba(var(--ar), 0.12); display: flex; flex-direction: column; gap: 10px; }
+.qdh-header { display: flex; align-items: center; justify-content: space-between; }
+.qdh-header b { font: 700 15px var(--sans); color: var(--tx); display: flex; align-items: center; gap: 6px; }
+.qdh-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 99px; background: rgba(var(--ar), 0.15); color: var(--a2t); border: 1px solid var(--bd); text-transform: uppercase; }
+
+.btn-instant { width: 100%; height: 54px; border-radius: 14px; background: var(--g); color: #08080a; font-weight: 800; font-size: 15.5px; letter-spacing: 0.2px; display: flex; align-items: center; justify-content: center; gap: 9px; box-shadow: 0 8px 24px rgba(var(--ar), 0.35); transition: transform 0.15s, filter 0.2s; }
+.btn-instant:active { transform: scale(0.98); }
+.btn-instant svg { width: 20px; height: 20px; fill: currentColor; }
+
+.qdh-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn-sub { height: 44px; border-radius: 12px; background: var(--card2); border: 1px solid var(--bd); color: var(--tx); font-weight: 600; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.15s; }
+.btn-sub:hover, .btn-sub:active { border-color: var(--a1); color: var(--a1t); background: rgba(var(--ar), 0.12); }
+.btn-sub svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* Sticky Mini Action Bar on Scroll */
+.sticky-dl-bar { position: fixed; bottom: calc(var(--bot) + 72px); left: 14px; right: 14px; z-index: 55; display: none; justify-content: center; animation: fadeUp 0.2s ease; }
+.sticky-dl-box { width: 100%; max-width: 480px; height: 50px; background: rgba(17,17,22,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1.5px solid var(--a1); border-radius: 99px; display: flex; align-items: center; justify-content: space-between; padding: 4px 6px 4px 16px; box-shadow: 0 12px 34px rgba(0,0,0,0.6); }
+[data-mode="light"] .sticky-dl-box { background: rgba(255,255,255,0.94); }
+.sticky-dl-box b { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; color: var(--tx); }
+.sticky-dl-btn { height: 40px; padding: 0 16px; border-radius: 99px; background: var(--g); color: #08080a; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 6px; flex-shrink: 0; box-shadow: 0 4px 14px rgba(var(--ar), 0.3); }
+
+/* Custom Audio Player */
+.audio-card { display: none; flex-direction: column; gap: 10px; background: var(--card); border: 1px solid var(--bd); border-radius: 18px; padding: 14px 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.ac-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ac-meta { min-width: 0; flex: 1; }
+.ac-meta b { display: block; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--tx); }
+.ac-meta small { color: var(--a2t); font-size: 11.5px; }
+.ac-play { width: 40px; height: 40px; min-width: 40px; border-radius: 50%; background: var(--g); color: #07070a; display: grid; place-items: center; box-shadow: 0 4px 14px rgba(var(--ar), 0.35); transition: transform 0.15s; }
+.ac-play:active { transform: scale(0.92); }
+.ac-play svg { width: 18px; height: 18px; fill: currentColor; }
+.ac-wave { display: flex; align-items: center; gap: 3px; height: 22px; padding: 0 4px; }
+.ac-wave span { width: 3px; height: 6px; background: rgba(var(--ar), 0.4); border-radius: 3px; }
+.audio-card.playing .ac-wave span { background: var(--a1); animation: wv 0.7s ease-in-out infinite alternate; }
+.audio-card.playing .ac-wave span:nth-child(2) { animation-delay: 0.15s; }
+.audio-card.playing .ac-wave span:nth-child(3) { animation-delay: 0.3s; }
+.audio-card.playing .ac-wave span:nth-child(4) { animation-delay: 0.45s; }
+.audio-card.playing .ac-wave span:nth-child(5) { animation-delay: 0.25s; }
+@keyframes wv { from { height: 4px; } to { height: 20px; } }
+.ac-scrub { width: 100%; height: 6px; background: var(--track); border-radius: 99px; position: relative; cursor: pointer; }
+.ac-fill { position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: var(--a1); border-radius: 99px; }
+[dir="rtl"] .ac-fill { left: auto; right: 0; }
+.ac-time { display: flex; justify-content: space-between; font-size: 11px; color: var(--dim); margin-top: 2px; }
+
+/* Advanced Customization Drawer */
+.adv-dl { background: var(--card); border: 1px solid var(--bd); border-radius: 20px; padding: 14px 16px; }
+.adv-toggle { width: 100%; display: flex; align-items: center; justify-content: space-between; color: var(--mu); font-size: 13px; font-weight: 600; padding: 6px 0; }
+.adv-toggle svg { width: 18px; height: 18px; transition: transform 0.2s; }
+.adv-toggle.on svg { transform: rotate(180deg); }
+.adv-body { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--bd); }
+.adv-body.on { display: block; }
+
+.tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 12px; border-bottom: 1px solid var(--bd); scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { border: 1px solid transparent; color: var(--dim); font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 99px; white-space: nowrap; min-height: 34px; }
+.tab.on { color: var(--tx); background: rgba(var(--ar), 0.16); border-color: rgba(var(--ar), 0.5); }
+.opts { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.opt { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 13px; border-radius: 12px; background: var(--card2); border: 1px solid var(--bd); cursor: pointer; transition: 0.2s; }
+.opt.on { border-color: var(--a1); background: linear-gradient(90deg, rgba(var(--ar), 0.14), var(--card2)); }
+.opt b { font-size: 13px; }
+.opt em { font-style: normal; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 6px; background: rgba(var(--ar), 0.18); color: var(--a2t); margin-inline-start: 6px; }
+.opt small { display: block; color: var(--dim); font-size: 11px; margin-top: 2px; }
+.dot { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--dim); flex-shrink: 0; }
+.opt.on .dot { border-color: var(--a1); background: radial-gradient(var(--a1) 45%, transparent 50%); }
+
+/* Caption */
+.cap { background: var(--card); border: 1px solid var(--bd); border-radius: 16px; padding: 14px; }
+.cap p { color: var(--mu); font-size: 13.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; }
+.cap p.x { display: block; color: var(--tx); }
+.cap .row { justify-content: space-between; margin-top: 8px; }
+.cap .lnk { color: var(--a2t); font-weight: 700; font-size: 12px; cursor: pointer; }
+.qa { margin-top: 10px; flex-wrap: wrap; justify-content: center; gap: 8px; }
+
+/* Headings & Search */
+h2.t { font: 700 28px/1.15 var(--serif); letter-spacing: -0.3px; }
+.sub { color: var(--mu); font-size: 12.5px; margin: 4px 0 16px; }
+.find { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--bd); border-radius: 99px; padding: 8px 16px; }
+.find input { flex: 1; background: none; border: 0; outline: 0; color: var(--tx); font-size: 14px; }
+.chips { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { background: var(--card); border: 1px solid var(--bd); color: var(--mu); padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 600; white-space: nowrap; min-height: 36px; }
+.chip.on { background: var(--g); color: #07070a; border-color: transparent; }
+
+/* Grid Cards (Vault & Favorites) */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.card { position: relative; aspect-ratio: 9/13; border-radius: 16px; overflow: hidden; background: var(--card); border: 1px solid var(--bd); cursor: pointer; }
+.card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card .ov { position: absolute; inset: 0; background: linear-gradient(transparent 45%, rgba(0,0,0,0.92)); display: flex; flex-direction: column; justify-content: flex-end; padding: 10px; color: #fff; }
+.card .ty { position: absolute; top: 8px; left: 8px; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 99px; background: rgba(0,0,0,0.7); border: 1px solid var(--bd); color: var(--a1t); }
+[dir="rtl"] .card .ty { left: auto; right: 8px; }
+.card .au { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card .rm { position: absolute; top: 6px; right: 6px; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,0.75); color: #fff; display: grid; place-items: center; font-size: 14px; }
+[dir="rtl"] .card .rm { right: auto; left: 6px; }
+.empty { display: none; text-align: center; padding: 48px 16px; color: var(--mu); }
+.empty h3 { font: 600 20px var(--serif); color: var(--tx); margin-bottom: 6px; }
+
+/* QR Transfer */
+.qr { text-align: center; }
+.qrimg { width: 230px; height: 230px; margin: 16px auto; background: #fff; border-radius: 18px; padding: 12px; border: 2px solid var(--a1); display: grid; place-items: center; box-shadow: 0 12px 34px rgba(var(--ar), 0.3); }
+.qrimg img { width: 100%; height: 100%; display: block; }
+
+/* Batch Downloader */
+.batch-box { background: var(--card); border: 1px solid var(--bd); border-radius: 20px; padding: 16px; }
+.batch-box textarea { width: 100%; height: 110px; background: var(--card2); border: 1px solid var(--bd); border-radius: 14px; padding: 12px; color: var(--tx); outline: 0; resize: vertical; font-size: 13px; line-height: 1.4; }
+.q-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.q-item { display: flex; align-items: center; gap: 12px; background: var(--card2); border: 1px solid var(--bd); border-radius: 14px; padding: 10px 14px; }
+.q-item img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: var(--card); flex-shrink: 0; }
+.q-item div { flex: 1; min-width: 0; }
+.q-item b { display: block; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.q-item small { color: var(--mu); font-size: 11px; }
+
+/* Settings Sections */
+.sec { font-size: 12px; font-weight: 700; color: var(--a2t); margin: 24px 4px 8px; display: flex; align-items: center; gap: 10px; }
+.sec::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--bd), transparent); }
+[dir="rtl"] .sec::after { background: linear-gradient(-90deg, var(--bd), transparent); }
+.set { background: var(--card); border: 1px solid var(--bd); border-radius: 18px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+.si { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 14px 16px; background: none; border: 0; border-bottom: 1px solid var(--bd); text-align: start; cursor: pointer; min-height: 44px; }
+.si:last-child { border-bottom: 0; }
+.si b { display: block; font-size: 13.5px; font-weight: 600; }
+.si small { color: var(--dim); font-size: 11.5px; }
+.sw { position: relative; width: 44px; height: 24px; border-radius: 99px; background: var(--sw-off); border: 1px solid var(--bd); flex-shrink: 0; transition: background 0.2s; }
+.sw::after { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform 0.2s; }
+[dir="rtl"] .sw::after { left: auto; right: 2px; }
+.sw.on { background: var(--a1); }
+.sw.on::after { transform: translateX(20px); background: #07070a; }
+[dir="rtl"] .sw.on::after { transform: translateX(-20px); }
+.sc { display: flex; flex-wrap: wrap; gap: 10px; padding: 14px 16px; }
+.sc i { width: 34px; height: 34px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; background: var(--c); }
+.sc i.on { border-color: var(--tx); box-shadow: 0 0 12px var(--c); }
+.inp { width: 100%; margin-top: 8px; background: var(--card2); border: 1px solid var(--bd); border-radius: 10px; padding: 10px 12px; color: var(--tx); font-size: 13px; outline: 0; }
+.inp:focus { border-color: var(--a1); }
+
+/* Developer Card (Immutable with Siyam A. Jisan's Photo) */
+.devc { text-align: center; }
+.dhead { height: 100px; background: radial-gradient(circle at 80% 0, rgba(var(--ar), 0.65), transparent 65%), linear-gradient(135deg, rgba(var(--ar), 0.45), rgba(var(--ar), 0.05)); }
+.dbody { padding: 0 20px 24px; margin-top: -60px; }
+.ph { width: 124px; height: 124px; margin: 0 auto 12px; padding: 3px; border-radius: 50%; background: conic-gradient(var(--a2), var(--a1), var(--a3), var(--a1), var(--a2)); box-shadow: 0 0 38px rgba(var(--ar), 0.5); position: relative; }
+.ph img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--card); display: block; }
+.ph-fb { display: none; width: 100%; height: 100%; border-radius: 50%; background: var(--card2); border: 3px solid var(--card); place-items: center; font: 700 36px var(--serif); color: var(--a1t); }
+.dn { display: flex; align-items: center; justify-content: center; gap: 6px; font: 700 23px var(--serif); }
+.dn svg { width: 18px; height: 18px; fill: var(--a1); flex-shrink: 0; }
+.dr { color: var(--a2t); font-size: 13px; font-weight: 600; }
+.devc p { color: var(--mu); font-size: 13.5px; margin: 12px auto; max-width: 320px; line-height: 1.5; }
+.dchips { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.dchips span { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 99px; border: 1px solid var(--bd); color: var(--a2t); background: rgba(var(--ar), 0.08); }
+
+/* Footer */
+footer { text-align: center; margin-top: 36px; color: var(--dim); font-size: 11.5px; }
+footer span { display: block; margin-top: 4px; color: var(--a1t); font: italic 13.5px var(--serif); }
+
+/* ==========================================================================
+   BOTTOM DOCK (FITS 320px WITHOUT OVERFLOW)
+   ========================================================================== */
+.dock { position: fixed; bottom: calc(var(--bot) + 8px); left: 0; right: 0; z-index: 60; display: flex; justify-content: center; padding: 0 8px; }
+.dock div { width: 100%; max-width: 520px; height: 58px; background: rgba(17,17,22,0.88); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); border: 1px solid var(--bd); border-radius: 99px; display: flex; justify-content: space-between; align-items: center; padding: 0 4px; box-shadow: 0 16px 42px rgba(0,0,0,0.5); }
+[data-mode="light"] .dock div { background: rgba(255,255,255,0.9); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+.dt { flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px 2px; font-size: 10px; font-weight: 600; color: var(--dim); position: relative; }
+.dt span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.dt svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+.dt.on { color: var(--a2t); }
+.dt.on svg { stroke: var(--a1); }
+.dt.on::after { content: ''; position: absolute; bottom: 4px; width: 16px; height: 3px; border-radius: 99px; background: var(--a1); box-shadow: 0 0 8px var(--a1); }
+
+/* Modals */
+.mb { position: fixed; inset: 0; z-index: 120; background: rgba(0,0,0,0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); display: none; align-items: center; justify-content: center; padding: 16px; }
+.mb.on { display: flex; }
+.mx { width: 100%; max-width: 420px; background: var(--card); border: 1px solid var(--bd); border-radius: 22px; padding: 22px; text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,0.6); max-height: 90vh; overflow-y: auto; }
+.mx h3 { font: 600 22px var(--serif); color: var(--a2t); margin-bottom: 6px; }
+.mx p { color: var(--mu); font-size: 12.5px; word-break: break-word; }
+.pb { height: 6px; background: var(--track); border-radius: 99px; margin: 16px 0 8px; overflow: hidden; }
+.pb i { display: block; height: 100%; width: 0; background: var(--g); transition: width 0.15s; }
+.pb i.ind { width: 40%; animation: ind 1.3s infinite ease-in-out; }
+@keyframes ind { from { transform: translateX(-100%); } to { transform: translateX(260%); } }
+
+/* Toast */
+.toast { position: fixed; top: calc(var(--top) + 70px); left: 50%; transform: translate(-50%, -20px); z-index: 200; background: var(--card); border: 1px solid var(--a1); color: var(--tx); border-radius: 99px; padding: 9px 22px; font-size: 13px; font-weight: 600; opacity: 0; pointer-events: none; transition: 0.3s; max-width: 90vw; text-align: center; box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+.toast.err { border-color: var(--red); color: #fca5a5; }
+
+@media (min-width: 880px) {
+  main, .bar { max-width: 840px; }
+  .stage.on { display: grid !important; grid-template-columns: 1.05fr 1fr; align-items: start; }
+}
+</style>
+</head>
+<body>
+<canvas id="dust"></canvas><div class="orb"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- STICKY ACTION BAR ON SCROLL -->
+<div class="sticky-dl-bar" id="stickyDlBar">
+  <div class="sticky-dl-box">
+    <b id="stickyTitle">TikTok Media</b>
+    <button class="sticky-dl-btn" id="stickyDlBtn">
+      <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      <span id="stickyDlText">Download HD</span>
+    </button>
+  </div>
+</div>
+
+<!-- HEADER CAPSULE -->
+<header class="top"><div class="bar">
+<button class="brand" id="bHome" aria-label="TikVault Home"><svg viewBox="0 0 32 32"><path d="M16 2.5 4 7.5v8c0 8 5 14 12 15.5 7-1.5 12-7.5 12-15.5v-8z"/><path d="M16 11v9m0 0-4-4m4 4 4-4"/></svg><b>TikVault</b></button>
+<div class="row" style="gap:4px">
+<button class="ib" id="btnTour" aria-label="Show Tips" title="Tips"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></button>
+<button class="ib" id="btnMode" aria-label="Toggle Light / Dark Mode" title="Theme Mode"><svg viewBox="0 0 24 24" id="modeIcon"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+<button class="ib" id="btnTheme" aria-label="Cycle Color Palette" title="Palette"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-1-1-2-2-2h-2a2 2 0 0 1-2-2V6c0-1.7-1.3-3-3-3z"/></svg></button>
+<button class="ib" id="btnLang" aria-label="Change Language" title="Language"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg></button>
+</div></div></header>
+
+<main>
+<!-- 1. HOME VIEW -->
+<section id="v-home" class="view on">
+<div class="hero"><h1 data-i="head">Save any TikTok.<br><em>Keep it forever.</em></h1><p data-i="desc">No watermark. Video, photos, audio and cover.</p></div>
+<div class="box">
+<div class="row"><input id="url" type="text" inputmode="url" data-p="ph" placeholder="Paste a TikTok link" autocomplete="off" spellcheck="false" aria-label="TikTok URL"><button class="pill" id="clear" style="display:none" data-i="clear">Clear</button></div>
+<button class="btn" id="go"><span data-i="go">Get media</span></button>
+</div>
+
+<div id="intro">
+<div class="feat"><span data-i="f_nowm">No watermark</span><span data-i="f_hd">HD video</span><span data-i="f_photo">Photos</span><span data-i="f_audio">HQ Audio</span><span data-i="f_cover">Cover</span></div>
+<div class="steps">
+<div class="step"><i><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></i><span><b data-i="s1_t">Paste a link</b><small data-i="s1_d">Long-press in the box to paste your TikTok link</small></span></div>
+<div class="step"><i><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h6"/></svg></i><span><b data-i="s2_t">Pick what you need</b><small data-i="s2_d">Choose video, photo slide, audio or cover</small></span></div>
+<div class="step"><i><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></i><span><b data-i="s3_t">Save or beam</b><small data-i="s3_d">Save directly or scan with another device</small></span></div>
+</div></div>
+
+<div class="notice" id="err" role="alert"><span id="errMsg"></span><div class="row"><button class="pill" id="retry" data-i="retry">Try again</button><button class="pill" id="newLink" data-i="newlink">New link</button></div></div>
+<div class="load" id="load"><div class="spin"></div><b data-i="loading">Fetching media…</b><div class="sk"></div></div>
+
+<div class="stage" id="stage">
+<div>
+<div class="player">
+  <video id="vid" controls playsinline preload="metadata"></video>
+  <div class="slides" id="slides">
+    <div class="cnt" id="cnt">1 / 1</div>
+    <button class="sl-btn sl-prev" id="slPrev" aria-label="Previous Slide">‹</button>
+    <button class="sl-btn sl-next" id="slNext" aria-label="Next Slide">›</button>
+    <div class="sl" id="sl"></div>
+  </div>
+</div>
+<div class="creator"><a id="cLink" href="#" target="_blank" rel="noopener noreferrer"><img id="cImg" alt="" referrerpolicy="no-referrer"><span style="min-width:0"><strong id="cName"></strong><small id="cUser"></small></span></a>
+<div class="row" style="gap:4px">
+<button class="ib" id="fav" aria-label="Favorite"><svg viewBox="0 0 24 24" id="heart"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+<button class="ib" id="share" aria-label="Share Media"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4m0-11-6.8 4"/></svg></button>
+</div></div>
+<div class="stats"><div><b id="sV">0</b><span data-i="views">Views</span></div><div><b id="sL">0</b><span data-i="likes">Likes</span></div><div><b id="sC">0</b><span data-i="comments">Comments</span></div><div><b id="sS">0</b><span data-i="shares">Shares</span></div></div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px">
+<!-- ⭐ 1-CLICK INSTANT DOWNLOAD HERO CARD -->
+<div class="quick-dl-hero" id="quickDlHero">
+  <div class="qdh-header">
+    <b><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:var(--a1)"><path d="M13 2L3 14h7v8l11-14h-8l0-6z"/></svg> <span data-i="qdh_title">Instant Download</span></b>
+    <span class="qdh-badge" id="qdhBadge">No Watermark</span>
+  </div>
+  <button class="btn-instant" id="btnInstantDl">
+    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+    <span id="btnInstantText">Download HD Video</span>
+  </button>
+  <div class="qdh-grid" id="qdhGrid">
+    <button class="btn-sub" id="btnSubAudio">
+      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>
+      <span>Audio (MP3)</span>
+    </button>
+    <button class="btn-sub" id="btnSubCover">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      <span>Cover Image</span>
+    </button>
+  </div>
+</div>
+
+<!-- Custom Sleek Audio Player -->
+<div class="audio-card" id="audioCard">
+  <div class="ac-top">
+    <button class="ac-play" id="acPlay" aria-label="Play/Pause Audio">
+      <svg viewBox="0 0 24 24" id="acPlayIcon"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </button>
+    <div class="ac-meta">
+      <b id="acTitle">Original Soundtrack</b>
+      <small id="acAuthor">TikTok Creator</small>
+    </div>
+    <div class="ac-wave"><span></span><span></span><span></span><span></span><span></span></div>
+    <button class="pill" id="acSpeed" style="padding:3px 8px;font-size:10px">1.0x</button>
+    <button class="pill" id="acDlBtn" style="padding:4px 10px;font-size:11px" data-i="save_mp3">Save MP3</button>
+  </div>
+  <div class="ac-scrub" id="acScrub" role="slider" aria-label="Audio scrubber"><div class="ac-fill" id="acFill"></div></div>
+  <div class="ac-time"><span id="acCur">0:00</span><span id="acDur">0:00</span></div>
+  <audio id="audioEl" preload="none"></audio>
+</div>
+
+<!-- Advanced Quality Customization Drawer -->
+<div class="adv-dl">
+  <button class="adv-toggle" id="advToggle">
+    <span data-i="adv_options">More Formats &amp; Detailed Qualities</span>
+    <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+  </button>
+  <div class="adv-body" id="advBody">
+    <div class="tabs" id="tabs"></div>
+    <div class="opts" id="opts"></div>
+    <button class="btn" id="dlBtn" style="margin-top:10px"><span data-i="download">Download Selected</span></button>
+  </div>
+</div>
+
+<div class="cap"><p id="capT"></p><div class="row"><button class="lnk" id="more" data-i="more">Read more</button><button class="pill" id="copyCap" data-i="copycap">Copy caption</button></div>
+<div class="row qa"><button class="pill" id="qaOpen" data-i="open_tt">Open TikTok</button><button class="pill" id="qaCopy" data-i="copy_link">Copy link</button><button class="pill" id="qaFile" data-i="copy_media">Copy media URL</button></div></div>
+</div></div>
+<footer>TikVault v6.4<span>Architected by Siyam A. Jisan ✨</span></footer>
+</section>
+
+<!-- 2. HISTORY VIEW -->
+<section id="v-hist" class="view"><h2 class="t" data-i="vault">Your vault</h2><p class="sub" data-i="vaultSub">Everything you analyzed recently</p>
+<div class="find"><input id="hq" data-p="search_hist" placeholder="Search saved items…" aria-label="Search History"></div>
+<div class="chips" id="hf"><button class="chip on" data-f="all" data-i="filter_all">All</button><button class="chip" data-f="video" data-i="filter_vid">Video</button><button class="chip" data-f="photo" data-i="filter_pho">Photo</button></div>
+<div class="grid" id="hg"></div><div class="empty" id="he"><h3 data-i="empty_hist_t">Nothing here yet</h3><span data-i="empty_hist_d">Analyze a link and it shows up here.</span></div></section>
+
+<!-- 3. FAVORITES VIEW -->
+<section id="v-fav" class="view"><h2 class="t" data-i="favs">Favorites</h2><p class="sub" data-i="favs_sub">Tap the heart on any result to keep it here</p>
+<div class="find"><input id="fq" data-p="search_fav" placeholder="Search favorites…" aria-label="Search Favorites"></div><div class="grid" id="fg"></div><div class="empty" id="fe"><h3 data-i="empty_fav_t">No favorites yet</h3><span data-i="empty_fav_d">Tap the heart on any video to pin it here.</span></div></section>
+
+<!-- 4. BATCH VIEW -->
+<section id="v-batch" class="view"><h2 class="t" data-i="batch_t">Batch Downloader</h2><p class="sub" data-i="batch_sub">Paste multiple TikTok links (one per line)</p>
+<div class="batch-box"><textarea id="batchInput" data-p="batch_ph" placeholder="https://www.tiktok.com/@...&#10;https://vt.tiktok.com/..."></textarea>
+<div class="row" style="margin-top:10px;gap:8px">
+  <button class="btn" id="bStart" style="margin-top:0"><span data-i="batch_queue">Analyze Batch Links</span></button>
+  <button class="btn alt" id="bDownloadAll" style="display:none;margin-top:0"><span data-i="batch_dl_all">Download All Ready</span></button>
+</div></div>
+<div class="q-list" id="qList"></div></section>
+
+<!-- 5. QR TRANSFER VIEW -->
+<section id="v-qr" class="view"><h2 class="t" data-i="qr_t">QR Transfer</h2><p class="sub" data-i="qr_sub">Beam to another phone immediately</p>
+<div class="box qr"><div class="tabs" style="justify-content:center"><button class="tab on" id="qP" data-i="qr_mode_page">Download page</button><button class="tab" id="qL" data-i="qr_mode_link">TikTok link</button><button class="tab" id="qT" data-i="qr_mode_stream">Media stream</button></div>
+<div class="qrimg"><img id="qImg" alt="QR code"></div><p class="sub" id="qD"></p>
+<p style="font-size:11px;color:var(--dim);margin:6px 0 12px" data-i="qr_privacy">The QR image is generated by api.qrserver.com, which receives the encoded link.</p>
+<div class="row" style="justify-content:center"><button class="btn alt" id="qSave" style="width:auto;padding:0 22px" data-i="save_qr">Save QR</button><button class="btn alt" id="qShare" style="width:auto;padding:0 22px" data-i="share_qr">Share QR</button></div></div></section>
+
+<!-- 6. SETTINGS VIEW -->
+<section id="v-set" class="view"><h2 class="t" data-i="settings">Settings</h2><p class="sub" data-i="settings_sub">Personal preferences &amp; engine controls</p>
+<div class="sec" data-i="sec_app">Appearance</div><div class="set"><div class="sc" id="themes"></div>
+<button class="si" data-s="reduceMotion"><span><b data-i="st_rm_t">Reduce motion</b><small data-i="st_rm_d">Disable background particles and animations</small></span><i class="sw"></i></button></div>
+
+<div class="sec" data-i="sec_beh">Behavior</div><div class="set">
+<button class="si" data-s="autoClipboard"><span><b data-i="st_ac_t">Detect copied links</b><small data-i="st_ac_d">Check clipboard on app focus</small></span><i class="sw"></i></button>
+<button class="si" data-s="autoPaste"><span><b data-i="st_ap_t">Fill link automatically</b><small data-i="st_ap_d">Auto-populate input box when link detected</small></span><i class="sw"></i></button>
+<button class="si" data-s="autoAnalyze"><span><b data-i="st_aa_t">Analyze right away</b><small data-i="st_aa_d">Execute fetch immediately upon link fill</small></span><i class="sw"></i></button>
+<button class="si" data-s="saveCover"><span><b data-i="st_sc_t">Save cover with video</b><small data-i="st_sc_d">Also download poster thumbnail alongside video</small></span><i class="sw"></i></button></div>
+
+<div class="sec" data-i="sec_eng">Engine &amp; Diagnostic</div><div class="set">
+<button class="si" id="ping"><span><b data-i="st_ping_t">Test API connection</b><small data-i="st_ping_d">Check latency to TikWM endpoints</small></span><span id="pingR" style="color:var(--mu);font-size:12px">Test</span></button>
+<div class="si"><span><b data-i="st_stg_t">Storage usage</b><small id="stgSize">Calculating…</small></span></div>
+<button class="si" id="exportData"><span><b data-i="st_exp_t">Export data (JSON)</b><small data-i="st_exp_d">Backup history and favorites to a JSON file</small></span></button>
+<button class="si" id="importData"><span><b data-i="st_imp_t">Import data (JSON)</b><small data-i="st_imp_d">Restore history and settings from backup</small></span></button>
+<input type="file" id="importInput" accept=".json,application/json" style="display:none">
+<button class="si" id="clrHist"><span><b style="color:var(--red)" data-i="st_clrh_t">Clear history</b><small data-i="st_clrh_d">Wipe recent searches</small></span></button>
+<button class="si" id="clrFav"><span><b style="color:var(--red)" data-i="st_clrf_t">Clear favorites</b><small data-i="st_clrf_d">Wipe saved items</small></span></button>
+<div class="si"><span><b data-i="st_bridge_t">Native bridge</b><small id="bridge">Detecting…</small></span></div></div>
+
+<div class="sec" data-i="sec_share">Sharing</div><div class="set"><div class="si" style="display:block"><b data-i="st_appurl_t">App web address</b><small data-i="st_appurl_d">Hosted public URL for QR transfer mode (GitHub Pages / Netlify)</small><input id="appUrl" class="inp" placeholder="https://yourname.github.io/tikvault.html" autocomplete="off" spellcheck="false"></div></div>
+
+<div class="sec" data-i="sec_dev">Developer</div>
+<div class="set devc">
+<div class="dhead"></div>
+<div class="dbody">
+<div class="ph">
+  <!-- Siyam A. Jisan's Photo Link directly embedded with offline fallback -->
+  <img id="devAvatar" alt="Siyam A. Jisan" referrerpolicy="no-referrer">
+  <div id="devFallback" class="ph-fb">SJ</div>
+</div>
+<div class="dn">
+  <b>Siyam A. Jisan</b>
+  <svg viewBox="0 0 24 24" title="Verified Developer"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+</div>
+<span class="dr">Developer &amp; Designer</span>
+<p>Designed and built TikVault from the first line to the last pixel.</p>
+<div class="dchips"><span>TikVault v6.4</span><span>Web · Android</span><span>Pure JS Engine</span></div>
+</div></div>
+</section>
+</main>
+
+<!-- BOTTOM DOCK NAVIGATION (6 TABS FIT ON 320PX) -->
+<nav class="dock" role="navigation" aria-label="App Navigation"><div>
+<button class="dt on" data-v="home" aria-label="Home"><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span data-i="nav_home">Home</span></button>
+<button class="dt" data-v="hist" aria-label="History"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i="nav_vault">Vault</span></button>
+<button class="dt" data-v="fav" aria-label="Favorites"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg><span data-i="nav_saved">Saved</span></button>
+<button class="dt" data-v="batch" aria-label="Batch"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg><span data-i="nav_batch">Batch</span></button>
+<button class="dt" data-v="qr" aria-label="QR Transfer"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zm4 4h3v3h-3z"/></svg><span data-i="nav_qr">QR</span></button>
+<button class="dt" data-v="set" aria-label="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M19 5l-2 2M7 17l-2 2"/></svg><span data-i="nav_settings">Settings</span></button>
+</div></nav>
+
+<!-- MODALS -->
+<div class="mb" id="mProg" role="dialog" aria-modal="true" aria-labelledby="pT"><div class="mx">
+<h3 id="pT">Downloading</h3><p id="pF"></p>
+<div class="pb"><i id="pB"></i></div><b id="pP" style="color:var(--a1t);font-size:12px">0%</b>
+<button class="btn alt" id="pX" style="margin-top:16px" data-i="btn_cancel">Cancel</button></div></div>
+
+<div class="mb" id="mShare" role="dialog" aria-modal="true" aria-labelledby="shTitle"><div class="mx">
+<h3 id="shTitle" data-i="sh_title">Share Media</h3><p style="margin-bottom:14px" data-i="sh_desc">Choose how you wish to share</p>
+<button class="btn" id="shL"><span data-i="sh_tt_link">Share TikTok link</span></button>
+<button class="btn alt" id="shS" style="margin-top:8px"><span data-i="sh_direct_link">Copy stream direct URL</span></button>
+<button class="btn alt" id="shX" style="margin-top:8px"><span data-i="btn_close">Close</span></button></div></div>
+
+<div class="mb" id="mLang" role="dialog" aria-modal="true" aria-labelledby="langTitle"><div class="mx">
+<h3 id="langTitle">Select Language</h3><p style="margin-bottom:14px">Choose your preferred UI language</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<button class="btn alt" data-l="en">English</button>
+<button class="btn alt" data-l="bn">বাংলা (Bengali)</button>
+<button class="btn alt" data-l="hi">हिन्दी (Hindi)</button>
+<button class="btn alt" data-l="ur">اردو (Urdu)</button>
+<button class="btn alt" data-l="ar">العربية (Arabic)</button>
+<button class="btn alt" data-l="es">Español</button>
+<button class="btn alt" data-l="id">Bahasa Indo</button>
+<button class="btn alt" data-l="tr">Türkçe</button>
+</div></div></div>
+
+<div class="mb" id="mTour" role="dialog" aria-modal="true" aria-labelledby="tourTitle"><div class="mx">
+<h3 id="tourTitle" data-i="tour_title">Welcome to TikVault</h3><p style="margin-bottom:14px" data-i="tour_sub">Three quick tips to get started</p>
+<div style="text-align:start;display:flex;flex-direction:column;gap:12px;font-size:13px;color:var(--tx)">
+<div style="display:flex;gap:10px"><b>1.</b><span data-i="tour_1">Copy any video or photo post in TikTok. TikVault auto-detects and extracts clean URLs.</span></div>
+<div style="display:flex;gap:10px"><b>2.</b><span data-i="tour_2">Tap the big Instant Download button to save crystal HD video or MP3 in one click!</span></div>
+<div style="display:flex;gap:10px"><b>3.</b><span data-i="tour_3">Use QR Transfer to beam files straight to another smartphone without wires.</span></div>
+</div><button class="btn" id="tourClose" style="margin-top:18px"><span data-i="tour_btn">Got it!</span></button></div></div>
+
+<!-- ==========================================================================
+   ENGINE SCRIPT (PURE JAVASCRIPT, SELF-CONTAINED)
+   ========================================================================== */
+-->
+<script>
+/* DEVELOPER PHOTO URL (Supplied by Siyam A. Jisan) */
+const DEV_PHOTO_URL = "https://i.ibb.co/JRVM38Jz/IMG-20260827-WA0069.jpg";
+
+/* FALLBACK BASE64 AVATAR */
+const DEV_PHOTO_B64 = "data:image/webp;base64,UklGRq5FAABXRUJQVlA4IKJFAACQdwGdASqkAaQBPlUokUYjoqGmJjIaKMAKiWlswaeUx+E9AlpxQWZBPg8gv+Wsr83+fph8LyD5A78ZlH+b9hP5vsxgmTvjAvxg8GXNF/R9Qzx29S/7pv0CaX43W6jkj5W3Q78YFAYssk/D6OV0hkjbZlMkBSzkzP/XhF4GmjXocaj5t7q7wqbB2zkwv76RYluIv07LeSyHjFxVNNVLg41h6gaoVTNxkxDPb7RXfSiJY5isH5O05hYZ3T/p/qoKn5ahGY05hD/X6fEW/2V49jBe6QPQRqWUtLC43wLTNaGRbUTRVtIpo6RpLpX9nIZwWM05ekGffbEVmTpg3gWfzDuLhCgBBs90Yj2pGLtKIY0EfXegvMPLUjzURKtLe6xWWDcWchDMj2XGarOUGWy1Y8oUyMxjV8IVu5ge+av6NOV2SpfX+uMnkmuYpCSIQKV4ERrl0xMoNAHhEsv6BQDXCgxAEOA1xdCUrrsd/AT3mLUHBqPgWdxlIdKYXyy+CxxNAzlAlRjZQMGnuzclz5mSDhapHbe5D7F7NEXyU8aFT3+C6/Q+4N1RoOvm0WaxgeTg5UP4Cj0DvYjgDrUufdH1IV0cTGdOpJpFeCH3VhlVNqxICpdSE1+9PVYuEf0946BR87PZHm/kmXAqXp5H/s/L/UZAuH7RdoF+VmcKNzGL4IZFDWELJT8nIvjCIMafbYTFZsDICsWxajKgkf/deQXBH3gp9KelD5UoNfh1X+eWWHFC9MESaHHupwK4uaoy8qPLaIUywNyXaKl6XUe/o6JRL1H6UgjfOx+khtlaRS3moU+kPGNQSho9VxckO0saJAyp62956+88cBxsq25TWUsSBKeD/lWIdaIRDvkL30fKptoP7CF6W6HGwaYrg9tnabB0QwNVQaFgxWbER5f+SOM3NpSdTX5k/muGjgIS+cJ78fmgXVDO9yp4As9YjFWWmDc82FYvZkEis+iHoIkG7DLKNrXoY0dE+49fqludC5zKg5/JWWs1os74w+YnEfwzG9z29Jw1lH/CqrD80/euxc2s4tJylQnp97R4W5O4z+aZ2yLFykInPaCJYUnW6oq0MCTL1g+aPQYmsmogbu4tMarmdxqgQzTACHX8SzrYQhub82X19pdnJ3S0ZI0VFW8kequLJxDNYDJtepVnbx86ohAJvytLSWNawp73zWFammrGC4+TQlrWbkGl+ESnDZipX/Jvwg4nkKiorKEM+V7H9mwi0pxvEfuwPBvpW15Jimi2Fk+trWlfe9fEK3ZknKheuCmipHCNZY15RPsYAWg/1OgyAIxgeYKb1e2VVtdjkJVqRCOkJQcXhrrfJJYVDngRIXw5zzb/BxCdkfbu8zRaV+1K7EflEI4tIyJztefvvUo10ghz9IrGRoEtWwBT3bhhE96K9czKTkWgzdhls+islboCWIuSqhimrqEKILnyUX01RiXdZlhWC+/ELBHqpj2+f/aPkHPo2X64NiPjHDWd33m6tcgT7icolgUGIoj+d8PJLsx6d42Q8sG5j5sOYA585y+AiqbGfC6ZTi/s0fmNnD7CIfZehbCSxZ7hdpeK6uNmkZsr1iXhKK90w65/cd0QERG+iVzcBls7p8zRU/oePEXZyvfANTB1Jx9r0Z4ntviFJqOphmy83hGXGTjpTb9F3N7brvSVJlXnqTiB1QjahuztbwSuXcLQX1vQM35BbPxS3fx+o9Rw3GfhjjpuK0kaB6WqExD4oK0k6ZjUv6rv7GNAkYSfsvmoylEhj34/BioDnWMt+d0YcXoRccoqocUQ4SKqwR4RxmYeoH9Ij4SDubReTSP53xLOdL3k/tdZT8M++MhYZG//9j6SK4SiauEA0WvpCJ3IB3eKmAU84VZrP6jo0de51bCHgEJtQ7f/1UnymkOT/9bF+0BFXaFmVUO8ppjFvA+5jPaWAXxMotCOzqyuBM/HeMtZsHZgTKtO7amJqOD5r08lMZUATTpXgGCVoHnfv7UI80mllmHnBxOyFtN+lggGyoHz3jzf/bwXQ2wtsa+BEtKI4kF2eh9pCVYkoKFjjRbAeoYe1w6k2cv9gxyAPAgspGrgU4EHVP/QCq9KQ4Hvp8tVsWqHg9pMe/16Gm4OptzDZWhokOluwrIyEMZi1t0wycvvZlptNChUr/njtprCWTQXt2zHEA2ewnegaD0ltrNupdDD9rJpaBT/dsoLQg+K92ARm15UVTaeZ3ahfsIVoaBRQifu8ijTXVl7c9PgdjNQUBstwvF85wNarRxmAlZ5nJADhCxH4BYVEE9sHV6C9iaGh/ZiZjnypt++eo+2tmuPpoUuQPBOAKzCB3CsWr0OFbA+Poe32WmAqcWfo+q93AYvfQpux8A==";
+
+const $ = id => document.getElementById(id), $$ = sel => [...document.querySelectorAll(sel)];
+const LS = {
+  get(k, def) { try { const v = localStorage.getItem(k); return v == null ? def : JSON.parse(v); } catch(e) { return def; } },
+  set(k, val) { try { localStorage.setItem(k, JSON.stringify(val)); } catch(e) {} }
+};
+
+const K = { H: 'tv6_hist', F: 'tv6_favs', S: 'tv6_set', L: 'tv6_lang', T: 'tv6_tour_seen' };
+const API = ["https://www.tikwm.com/api/", "https://api.tikwm.com/api/"];
+const TIMEOUT = 18000;
+const THEMES = {
+  gold: '#d4af37', emerald: '#34d399', violet: '#a78bfa', rose: '#fb7185',
+  ocean: '#38bdf8', sunset: '#fb923c', crimson: '#ef4444', neon: '#a3e635', mono: '#71717a'
+};
+
+const S = {
+  media: null, srcUrl: '', tab: 'video', sel: 0, slide: 0, analyzing: false,
+  busy: false, cancel: false, abort: null, qr: 'page', lastClip: '',
+  set: Object.assign({
+    autoClipboard: true, autoPaste: true, autoAnalyze: false, saveCover: false,
+    reduceMotion: false, theme: 'gold', mode: 'dark', appUrl: ''
+  }, LS.get(K.S, {}))
+};
+
+/* HAPTIC VIBRATION HELPER */
+const haptic = () => { if (navigator.vibrate) try { navigator.vibrate(15); } catch(e) {} };
+
+/* 8-LANGUAGE DICTIONARIES */
+const T = {
+  en: {
+    head: "Save any TikTok.<br><em>Keep it forever.</em>", desc: "No watermark. Video, photos, audio and cover.",
+    clear: "Clear", go: "Get media", retry: "Try again", newlink: "New link", loading: "Fetching media…",
+    download: "Download Selected", more: "Read more", less: "Show less", copycap: "Copy caption",
+    vault: "Your vault", vaultSub: "Everything you analyzed recently", favs: "Favorites", favs_sub: "Tap the heart on any result to keep it here",
+    settings: "Settings", settings_sub: "Personal preferences & engine controls", ph: "Paste a TikTok link",
+    views: "Views", likes: "Likes", comments: "Comments", shares: "Shares",
+    s1_t: "Paste a link", s1_d: "Long-press in the box to paste your TikTok link",
+    s2_t: "Pick what you need", s2_d: "Choose video, photo slide, audio or cover",
+    s3_t: "Save or beam", s3_d: "Save directly or scan with another device",
+    f_nowm: "No watermark", f_hd: "HD video", f_photo: "Photos", f_audio: "HQ Audio", f_cover: "Cover",
+    nav_home: "Home", nav_vault: "Vault", nav_saved: "Saved", nav_batch: "Batch", nav_qr: "QR", nav_settings: "Settings",
+    save_mp3: "Save MP3", open_tt: "Open TikTok", copy_link: "Copy link", copy_media: "Copy media URL",
+    search_hist: "Search saved items…", search_fav: "Search favorites…", filter_all: "All", filter_vid: "Video", filter_pho: "Photo",
+    empty_hist_t: "Nothing here yet", empty_hist_d: "Analyze a link and it shows up here.",
+    empty_fav_t: "No favorites yet", empty_fav_d: "Tap the heart on any video to pin it here.",
+    batch_t: "Batch Downloader", batch_sub: "Paste multiple TikTok links (one per line)", batch_ph: "https://www.tiktok.com/@...\nhttps://vt.tiktok.com/...",
+    batch_queue: "Analyze Batch Links", batch_dl_all: "Download All Ready",
+    qr_t: "QR Transfer", qr_sub: "Beam to another phone immediately",
+    qr_mode_page: "Download page", qr_mode_link: "TikTok link", qr_mode_stream: "Media stream",
+    qr_privacy: "The QR image is generated by api.qrserver.com, which receives the encoded link.",
+    save_qr: "Save QR", share_qr: "Share QR",
+    sec_app: "Appearance", sec_beh: "Behavior", sec_eng: "Engine & Diagnostic", sec_share: "Sharing", sec_dev: "Developer",
+    st_rm_t: "Reduce motion", st_rm_d: "Disable background particles and animations",
+    st_ac_t: "Detect copied links", st_ac_d: "Check clipboard on app focus",
+    st_ap_t: "Fill link automatically", st_ap_d: "Auto-populate input box when link detected",
+    st_aa_t: "Analyze right away", st_aa_d: "Execute fetch immediately upon link fill",
+    st_sc_t: "Save cover with video", st_sc_d: "Also download poster thumbnail alongside video",
+    st_ping_t: "Test API connection", st_ping_d: "Check latency to TikWM endpoints",
+    st_stg_t: "Storage usage", st_exp_t: "Export data (JSON)", st_exp_d: "Backup history and favorites to a JSON file",
+    st_imp_t: "Import data (JSON)", st_imp_d: "Restore history and settings from backup",
+    st_clrh_t: "Clear history", st_clrh_d: "Wipe recent searches",
+    st_clrf_t: "Clear favorites", st_clrf_d: "Wipe saved items",
+    st_bridge_t: "Native bridge", st_appurl_t: "App web address", st_appurl_d: "Hosted public URL for QR transfer mode (GitHub Pages / Netlify)",
+    tour_title: "Welcome to TikVault", tour_sub: "Three quick tips to get started",
+    tour_1: "Copy any video or photo post in TikTok. TikVault auto-detects and extracts clean URLs.",
+    tour_2: "Tap the big Instant Download button to save crystal HD video or MP3 in one click!",
+    tour_3: "Use QR Transfer to beam files straight to another smartphone without wires.",
+    tour_btn: "Got it!", btn_cancel: "Cancel", btn_close: "Close",
+    sh_title: "Share Media", sh_desc: "Choose how you wish to share", sh_tt_link: "Share TikTok link", sh_direct_link: "Copy stream direct URL",
+    qdh_title: "Instant Download", adv_options: "More Formats & Detailed Qualities"
+  },
+  bn: {
+    head: "যেকোনো টিকটক সেভ করুন।<br><em>চিরদিনের জন্য।</em>", desc: "ওয়াটারমার্ক ছাড়া ভিডিও, ছবি, অডিও ও কভার।",
+    clear: "মুছুন", go: "মিডিয়া আনুন", retry: "আবার চেষ্টা", newlink: "নতুন লিংক", loading: "মিডিয়া আনা হচ্ছে…",
+    download: "নির্বাচিত ফাইল ডাউনলোড", more: "আরও দেখুন", less: "সংক্ষেপ", copycap: "ক্যাপশন কপি",
+    vault: "আপনার ভল্ট", vaultSub: "সম্প্রতি যা অ্যানালাইজ করেছেন", favs: "ফেভারিট", favs_sub: "যেকোনো রেজাল্টে হার্ট চাপুন",
+    settings: "সেটিংস", settings_sub: "পছন্দ এবং ইঞ্জিন কন্ট্রোল", ph: "টিকটক লিংক পেস্ট করুন",
+    views: "ভিউ", likes: "লাইক", comments: "কমেন্ট", shares: "শেয়ার",
+    s1_t: "লিংক পেস্ট করুন", s1_d: "ইনপুট বক্সে চেপে ধরে পেস্ট করুন",
+    s2_t: "ফরম্যাট বাছুন", s2_d: "ভিডিও, ফটো, অডিও বা কভার",
+    s3_t: "সেভ করুন", s3_d: "সরাসরি নামান বা কিউআর কোড স্ক্যান করুন",
+    f_nowm: "নো ওয়াটারমার্ক", f_hd: "এইচডি ভিডিও", f_photo: "ফটো", f_audio: "এইচকিউ অডিও", f_cover: "কভার",
+    nav_home: "হোম", nav_vault: "ভল্ট", nav_saved: "সেভড", nav_batch: "ব্যাচ", nav_qr: "কিউআর", nav_settings: "সেটিংস",
+    save_mp3: "সেভ MP3", open_tt: "টিকটকে ওপেন", copy_link: "কপি লিংক", copy_media: "কপি মিডিয়া লিংক",
+    search_hist: "ইতিহাস খুঁজুন…", search_fav: "ফেভারিট খুঁজুন…", filter_all: "সব", filter_vid: "ভিডিও", filter_pho: "ফটো",
+    empty_hist_t: "কিছু পাওয়া যায়নি", empty_hist_d: "লিংক অ্যানালাইজ করলে এখানে দেখাবে।",
+    empty_fav_t: "কোনো ফেভারিট নেই", empty_fav_d: "ভিডিও সেভ করতে হার্ট আইকনে চাপ দিন।",
+    batch_t: "ব্যাচ ডাউনলোডার", batch_sub: "একাধিক লিংক এক লাইনে একটি করে পেস্ট করুন", batch_ph: "https://www.tiktok.com/@...\nhttps://vt.tiktok.com/...",
+    batch_queue: "সব লিংক অ্যানালাইজ করুন", batch_dl_all: "সব রেডি ডাউনলোড করুন",
+    qr_t: "কিউআর ট্রান্সফার", qr_sub: "অন্য ফোনে তৎক্ষণাৎ পাঠান",
+    qr_mode_page: "ডাউনলোড পেজ", qr_mode_link: "টিকটক লিংক", qr_mode_stream: "মিডিয়া স্ট্রিম",
+    qr_privacy: "কিউআর কোডটি api.qrserver.com দ্বারা জেনারেট হয়।",
+    save_qr: "সেভ কিউআর", share_qr: "শেয়ার কিউআর",
+    sec_app: "অ্যাপিয়ারেন্স", sec_beh: "আচরণ", sec_eng: "ইঞ্জিন ও ডায়াগনস্টিক", sec_share: "শেয়ারিং", sec_dev: "ডেভেলপার",
+    st_rm_t: "রিডিউস মোশন", st_rm_d: "ব্যাকগ্রাউন্ড কণা এবং অ্যানিমেশন বন্ধ রাখুন",
+    st_ac_t: "ক্লিপবোর্ড ডিটেকশন", st_ac_d: "অ্যাপে ফিরলে কপি লিংক ডিটেক্ট করবে",
+    st_ap_t: "অটো পেস্ট", st_ap_d: "লিংক ডিটেক্ট হলে বক্সে বসাবে",
+    st_aa_t: "অটো অ্যানালাইজ", st_aa_d: "লিংক পাওয়ার সাথে সাথে ফেচ শুরু করবে",
+    st_sc_t: "কভার সেভ করুন", st_sc_d: "ভিডিওর সাথে পোস্টার ছবিও নামাবে",
+    st_ping_t: "API কানেকশন টেস্ট", st_ping_d: "TikWM সার্ভার লেটেন্সি চেক",
+    st_stg_t: "স্টোরেজ ব্যবহার", st_exp_t: "এক্সপোর্ট ডাটা (JSON)", st_exp_d: "হিস্ট্রি ও ফেভারিট ব্যাকআপ নিন",
+    st_imp_t: "ইমপোর্ট ডাটা (JSON)", st_imp_d: "ব্যাকআপ ফাইল থেকে রিস্টোর করুন",
+    st_clrh_t: "হিস্ট্রি মুছুন", st_clrh_d: "সব সার্চ হিস্ট্রি ডিলিট করুন",
+    st_clrf_t: "ফেভারিট মুছুন", st_clrf_d: "সব ফেভারিট ডিলিট করুন",
+    st_bridge_t: "নেটিভ ব্রিজ", st_appurl_t: "অ্যাপ ওয়েব অ্যাড্রেস", st_appurl_d: "কিউআর পেজ ওপেনের জন্য হোস্টেড ইউআরএল",
+    tour_title: "TikVault-এ স্বাগতম", tour_sub: "শুরুর জন্য ৩টি ছোট টিপস",
+    tour_1: "টিকটক পোস্টের লিংক কপি করে TikVault ওপেন করুন, অটো ডিটেক্ট হবে।",
+    tour_2: "বড় ইনস্ট্যান্ট ডাউনলোড বাটনে চাপ দিয়ে ১ ক্লিকেই এইচডি ভিডিও বা MP3 সেভ করুন!",
+    tour_3: "অন্য ফোনে পাঠাতে কিউআর ট্রান্সফার স্ক্যান করুন।",
+    tour_btn: "বুঝেছি!", btn_cancel: "বাতিল", btn_close: "বন্ধ",
+    sh_title: "মিডিয়া শেয়ার", sh_desc: "শেয়ার অপশন বেছে নিন", sh_tt_link: "টিকটক লিংক শেয়ার", sh_direct_link: "মিডিয়া স্ট্রিম লিংক কপি",
+    qdh_title: "ইনস্ট্যান্ট ডাউনলোড", adv_options: "অন্যান্য কোয়ালিটি এবং ফরম্যাট"
+  }
+};
+
+let activeLang = 'en';
+function setLang(l) {
+  if (!T[l]) l = 'en';
+  activeLang = l;
+  LS.set(K.L, l);
+
+  const isRtl = (l === 'ar' || l === 'ur');
+  document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+  document.documentElement.lang = l;
+
+  const dict = T[l] || T.en;
+  const enDict = T.en;
+
+  $$('[data-i]').forEach(el => {
+    const key = el.dataset.i;
+    el.innerHTML = dict[key] || enDict[key] || '';
+  });
+  $$('[data-p]').forEach(el => {
+    const key = el.dataset.p;
+    el.placeholder = dict[key] || enDict[key] || '';
+  });
+
+  if (S.media) {
+    $('more').textContent = $('capT').classList.contains('x') ? (dict.less || 'Show less') : (dict.more || 'Read more');
+  }
+}
+
+/* NOTIFICATIONS & UTILITY */
+let toastT;
+function toast(msg, err = false) {
+  const el = $('toast');
+  el.textContent = msg;
+  el.className = 'toast on' + (err ? ' err' : '');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove('on'), 3400);
+}
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmt = n => !n ? '0' : n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? (n / 1e3).toFixed(1) + 'K' : String(n);
+const clean = s => String(s || '').trim().replace(/^["']|["']$/g, '').trim();
+const fname = s => String(s || 'media').replace(/[\\/?%*:|"<>\s]+/g, '_');
+const norm = u => !u ? null : /^https?:/.test(u) ? u : u.startsWith('//') ? 'https:' + u : 'https://www.tikwm.com/' + u.replace(/^\//, '');
+
+function checkUrl(raw) {
+  const u = clean(raw);
+  if (!u) return { ok: false, msg: 'Please paste a TikTok link first.' };
+  if (/^(javascript|data|file):/i.test(u)) return { ok: false, msg: 'Invalid protocol.' };
+  const m = u.match(/https?:\/\/[^\s]+/i);
+  const f = m ? m[0] : u;
+  if (!/^(https?:\/\/)?((www|vm|vt|m|t)\.)?(tiktok\.com|douyin\.com)\/.+/i.test(f)) {
+    return { ok: false, msg: 'Please provide a valid TikTok or Douyin URL.' };
+  }
+  return { ok: true, url: /^https?:/i.test(f) ? f : 'https://' + f };
+}
+
+function copy(text, msg) {
+  haptic();
+  const onSuccess = () => toast(msg);
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(text).then(onSuccess).catch(() => fallback());
+  } else fallback();
+  function fallback() {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); onSuccess(); } catch (e) { toast('Copy failed', true); }
+    ta.remove();
+  }
+}
+
+/* NATIVE BRIDGE DETECTION */
+const bridge = () => window.AndroidBridge || window.Android || null;
+window.onNativeDownloadProgress = (p, m) => prog(p, m);
+window.onNativeDownloadComplete = () => done(true, 'Saved to gallery');
+window.onNativeDownloadError = e => done(false, e || 'Download failed');
+
+/* VIEW NAVIGATION */
+function view(v) {
+  haptic();
+  $$('.view').forEach(e => e.classList.toggle('on', e.id === 'v-' + v));
+  $$('.dt').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+  if (v === 'hist') drawList('hist');
+  if (v === 'fav') drawList('fav');
+  if (v === 'qr') qrUpdate();
+  if (v === 'set') updateStorageSize();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+$$('.dt').forEach(b => b.onclick = () => view(b.dataset.v));
+$('bHome').onclick = () => view('home');
+
+/* CLIPBOARD AUTO-DETECTION */
+async function checkClipboard() {
+  if (!S.set.autoClipboard || document.hidden) return;
+  let text = '';
+  const b = bridge();
+  try { if (b && b.getClipboardText) text = b.getClipboardText(); } catch (e) {}
+  if (!text && navigator.clipboard?.readText) {
+    try { text = await navigator.clipboard.readText(); } catch (e) {}
+  }
+  const c = checkUrl(text);
+  if (!c.ok || c.url === S.lastClip) return;
+  S.lastClip = c.url;
+  if (S.set.autoPaste && (!$('url').value.trim())) {
+    $('url').value = c.url;
+    $('clear').style.display = '';
+    toast('TikTok link auto-detected');
+    if (S.set.autoAnalyze) analyze();
+  }
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden) setTimeout(checkClipboard, 400); });
+window.addEventListener('focus', () => setTimeout(checkClipboard, 400));
+
+function extractLink(text) {
+  const m = String(text || '').match(/https?:\/\/[^\s]+/i);
+  return m ? m[0] : clean(text);
+}
+
+$('url').addEventListener('paste', e => {
+  const pasted = (e.clipboardData || window.clipboardData)?.getData('text');
+  if (pasted) {
+    e.preventDefault();
+    const cleanUrl = extractLink(pasted);
+    $('url').value = cleanUrl;
+    $('clear').style.display = cleanUrl ? '' : 'none';
+    if (checkUrl(cleanUrl).ok && S.set.autoAnalyze) analyze();
+  }
+});
+
+$('url').oninput = e => {
+  const val = e.target.value;
+  if (/\s/.test(val.trim()) && /https?:\/\//.test(val)) {
+    $('url').value = extractLink(val);
+  }
+  $('clear').style.display = $('url').value.trim() ? '' : 'none';
+};
+
+$('clear').onclick = () => {
+  haptic();
+  $('intro').style.display = '';
+  $('stage').style.display = 'none';
+  $('stage').classList.remove('on');
+  $('stickyDlBar').style.display = 'none';
+  $('url').value = '';
+  $('clear').style.display = 'none';
+  $('url').focus();
+  stopAudioPlayer();
+};
+$('url').onkeydown = e => { if (e.key === 'Enter') analyze(); };
+
+/* API PARSER & FETCH ENGINE */
+function parsePayload(r) {
+  const d = r.data || r;
+  const imgs = Array.isArray(d.images) ? d.images.map(norm).filter(Boolean) : [];
+  const cover = norm(d.cover || d.origin_cover);
+  const a = d.author || {};
+  return {
+    id: String(d.id || Date.now()),
+    author: a.nickname || 'TikTok creator',
+    username: a.unique_id || '',
+    avatar: norm(a.avatar) || cover,
+    caption: d.title || '',
+    views: d.play_count || 0,
+    likes: d.digg_count || 0,
+    comments: d.comment_count || 0,
+    shares: d.share_count || 0,
+    sd: norm(d.play),
+    hd: norm(d.hdplay),
+    wm: norm(d.wmplay),
+    audio: norm(d.music || d.music_info?.play_url),
+    cover: cover || imgs[0] || null,
+    images: imgs,
+    mTitle: d.music_info?.title || d.music_title || 'Original soundtrack',
+    mAuthor: d.music_info?.author || a.nickname || 'Creator'
+  };
+}
+
+async function fetchMediaData(url) {
+  let lastMsg = 'Could not fetch TikTok media. Please verify URL & connection.';
+  for (const ep of API) {
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      const ac = S.abort = new AbortController();
+      const to = setTimeout(() => ac.abort(), TIMEOUT);
+      try {
+        const res = await fetch(`${ep}?url=${encodeURIComponent(url)}&hd=1`, { signal: ac.signal });
+        clearTimeout(to);
+        if (!res.ok) {
+          if ([408, 429, 500, 502, 503, 504].includes(res.status)) {
+            await new Promise(r => setTimeout(r, 700 * attempt));
+            continue;
+          }
+          break;
+        }
+        const json = await res.json();
+        if (json.code !== 0 || !json.data) {
+          lastMsg = json.msg ? ('Server response: ' + json.msg) : lastMsg;
+          break;
+        }
+        return parsePayload(json);
+      } catch (err) {
+        clearTimeout(to);
+        if (err.name === 'AbortError' && S.cancelAnalyze) return null;
+        if (err.name === 'AbortError') break;
+      }
+    }
+  }
+  throw new Error(lastMsg);
+}
+
+async function analyze() {
+  if (S.analyzing) return;
+  haptic();
+  const verified = checkUrl($('url').value);
+  if (!verified.ok) {
+    toast(verified.msg, true);
+    $('url').focus();
+    return;
+  }
+  $('intro').style.display = 'none';
+  $('err').style.display = 'none';
+  $('stage').style.display = 'none';
+  $('stage').classList.remove('on');
+  $('stickyDlBar').style.display = 'none';
+  $('load').style.display = 'block';
+  S.analyzing = true;
+  $('go').disabled = true;
+
+  try {
+    const data = await fetchMediaData(verified.url);
+    if (data) {
+      S.media = data;
+      S.srcUrl = verified.url;
+      renderResult(data);
+      saveToHistory(data, verified.url);
+      toast('Media ready! Tap Download below');
+    }
+  } catch (err) {
+    $('errMsg').textContent = err.message;
+    $('err').style.display = 'block';
+    if (!$('url').value.trim()) $('intro').style.display = '';
+  }
+  $('load').style.display = 'none';
+  $('go').disabled = false;
+  S.analyzing = false;
+}
+
+$('go').onclick = analyze;
+$('retry').onclick = analyze;
+$('newLink').onclick = () => {
+  $('intro').style.display = '';
+  $('err').style.display = 'none';
+  $('url').value = '';
+  $('url').focus();
+  stopAudioPlayer();
+};
+
+/* AUDIO CONTROLS & SPEED CHIP */
+const aEl = $('audioEl');
+const aCard = $('audioCard');
+const speeds = [1.0, 1.25, 1.5, 2.0];
+let speedIdx = 0;
+
+function stopAudioPlayer() {
+  aEl.pause();
+  aEl.currentTime = 0;
+  aCard.classList.remove('playing');
+  $('acPlayIcon').innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+}
+
+function setupAudioPlayer(m) {
+  if (m.audio) {
+    aCard.style.display = 'flex';
+    $('acTitle').textContent = m.mTitle;
+    $('acAuthor').textContent = m.mAuthor;
+    aEl.src = m.audio;
+    stopAudioPlayer();
+    $('acDlBtn').onclick = () => {
+      haptic();
+      const u = fname(m.username || 'creator');
+      transferOne(m.audio, `TikVault_${u}_${m.id}_audio.mp3`, 'audio/mpeg');
+    };
+  } else {
+    aCard.style.display = 'none';
+    aEl.removeAttribute('src');
+  }
+}
+
+$('acSpeed').onclick = () => {
+  haptic();
+  speedIdx = (speedIdx + 1) % speeds.length;
+  const spd = speeds[speedIdx];
+  aEl.playbackRate = spd;
+  $('acSpeed').textContent = spd.toFixed(1) + 'x';
+};
+
+$('acPlay').onclick = () => {
+  haptic();
+  if (aEl.paused) {
+    $('vid').pause();
+    aEl.play().then(() => {
+      aCard.classList.add('playing');
+      $('acPlayIcon').innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    }).catch(() => toast('Audio playback blocked', true));
+  } else {
+    aEl.pause();
+    aCard.classList.remove('playing');
+    $('acPlayIcon').innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+  }
+};
+
+const formatTime = sec => {
+  if (isNaN(sec)) return '0:00';
+  const m = Math.floor(sec / 60), s = Math.floor(sec % 60);
+  return `${m}:${s < 10 ? '0' : ''}${s}`;
+};
+aEl.ontimeupdate = () => {
+  const pct = (aEl.currentTime / (aEl.duration || 1)) * 100;
+  $('acFill').style.width = pct + '%';
+  $('acCur').textContent = formatTime(aEl.currentTime);
+};
+aEl.onloadedmetadata = () => { $('acDur').textContent = formatTime(aEl.duration); };
+aEl.onended = () => { stopAudioPlayer(); };
+$('acScrub').onclick = e => {
+  const rect = $('acScrub').getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+  if (aEl.duration) aEl.currentTime = ratio * aEl.duration;
+};
+
+/* ADVANCED DRAWER ACCORDION */
+$('advToggle').onclick = () => {
+  haptic();
+  const isExpanded = $('advBody').classList.toggle('on');
+  $('advToggle').classList.toggle('on', isExpanded);
+};
+
+/* RENDER RESULT & HOOK INSTANT BUTTONS */
+function renderResult(m) {
+  $('intro').style.display = 'none';
+  $('cImg').src = m.avatar || '';
+  $('cName').textContent = m.author;
+  $('cUser').textContent = m.username ? '@' + m.username : '';
+  $('cLink').href = m.username ? 'https://www.tiktok.com/@' + encodeURIComponent(m.username) : '#';
+
+  $('sV').textContent = fmt(m.views);
+  $('sL').textContent = fmt(m.likes);
+  $('sC').textContent = fmt(m.comments);
+  $('sS').textContent = fmt(m.shares);
+
+  const cp = $('capT');
+  cp.textContent = m.caption || 'No caption provided.';
+  cp.classList.remove('x');
+  $('more').textContent = T[activeLang]?.more || 'Read more';
+  $('more').style.display = (m.caption || '').length > 80 ? '' : 'none';
+
+  updateHeartState();
+
+  const v = $('vid'), sl = $('slides'), box = $('sl');
+  v.pause();
+
+  // Configure 1-Click Instant Download Button
+  const isPhoto = m.images && m.images.length > 0;
+  if (isPhoto) {
+    $('qdhBadge').textContent = `${m.images.length} Photos`;
+    $('btnInstantText').textContent = `Download All Photos (ZIP)`;
+    $('stickyDlText').textContent = `Save Photos (ZIP)`;
+    $('btnInstantDl').onclick = () => {
+      haptic();
+      executeDownload({ k: 'zip' });
+    };
+  } else {
+    $('qdhBadge').textContent = m.hd ? "1080p HD" : "Watermark Free";
+    $('btnInstantText').textContent = "Download HD (No Watermark)";
+    $('stickyDlText').textContent = "Download HD";
+    $('btnInstantDl').onclick = () => {
+      haptic();
+      executeDownload({ u: m.hd || m.sd, e: 'mp4', t: 'video/mp4' });
+    };
+  }
+
+  // Quick secondary buttons
+  $('btnSubAudio').onclick = () => {
+    haptic();
+    if (m.audio) executeDownload({ u: m.audio, e: 'mp3', t: 'audio/mpeg' });
+    else toast('No audio track available', true);
+  };
+  $('btnSubCover').onclick = () => {
+    haptic();
+    if (m.cover) executeDownload({ u: m.cover, e: 'jpg', t: 'image/jpeg' });
+    else toast('No cover image found', true);
+  };
+
+  $('stickyTitle').textContent = m.author ? `@${m.author}` : "TikTok Media";
+  $('stickyDlBtn').onclick = () => $('btnInstantDl').click();
+
+  if (isPhoto) {
+    v.style.display = 'none';
+    v.removeAttribute('src');
+    sl.style.display = 'block';
+    box.innerHTML = '';
+    S.slide = 0;
+    m.images.forEach((imgUrl, idx) => {
+      const slideDiv = document.createElement('div');
+      const img = document.createElement('img');
+      img.src = imgUrl;
+      img.alt = `Slide ${idx + 1}`;
+      img.loading = 'lazy';
+      img.referrerPolicy = 'no-referrer';
+      slideDiv.appendChild(img);
+      box.appendChild(slideDiv);
+    });
+    $('cnt').textContent = `1 / ${m.images.length}`;
+    box.scrollLeft = 0;
+    box.onscroll = () => {
+      S.slide = Math.round(box.scrollLeft / box.offsetWidth) || 0;
+      $('cnt').textContent = `${S.slide + 1} / ${m.images.length}`;
+    };
+    $('slPrev').onclick = () => box.scrollBy({ left: -box.offsetWidth, behavior: 'smooth' });
+    $('slNext').onclick = () => box.scrollBy({ left: box.offsetWidth, behavior: 'smooth' });
+  } else {
+    sl.style.display = 'none';
+    v.style.display = 'block';
+    v.src = m.hd || m.sd || m.wm || '';
+    v.poster = m.cover || '';
+  }
+
+  setupAudioPlayer(m);
+  buildDownloadConsole(m);
+
+  const stg = $('stage');
+  stg.style.display = 'flex';
+  stg.classList.add('on');
+
+  // Smooth scroll right to the instant download buttons
+  $('quickDlHero').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Show/hide sticky download button on scroll
+window.addEventListener('scroll', () => {
+  if (S.media && $('stage').classList.contains('on')) {
+    const heroRect = $('quickDlHero').getBoundingClientRect();
+    const isOut = heroRect.bottom < 60;
+    $('stickyDlBar').style.display = isOut ? 'flex' : 'none';
+  } else {
+    $('stickyDlBar').style.display = 'none';
+  }
+});
+
+$('more').onclick = () => {
+  haptic();
+  const isExpanded = $('capT').classList.toggle('x');
+  $('more').textContent = isExpanded ? (T[activeLang]?.less || 'Show less') : (T[activeLang]?.more || 'Read more');
+};
+$('copyCap').onclick = () => S.media?.caption ? copy(S.media.caption, 'Caption copied!') : toast('No caption found', true);
+
+/* DETAILED DOWNLOAD CONSOLE BUILDER */
+function buildDownloadConsole(m) {
+  const tabList = [];
+  if (m.images.length) tabList.push(['photo', `Photos (${m.images.length})`]);
+  else if (m.hd || m.sd || m.wm) tabList.push(['video', 'Video']);
+  if (m.audio) tabList.push(['audio', 'Audio (HQ MP3)']);
+  if (m.cover) tabList.push(['cover', 'Cover (Poster)']);
+
+  const bar = $('tabs');
+  bar.innerHTML = '';
+  tabList.forEach(([tabId, label], idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (idx === 0 ? ' on' : '');
+    btn.textContent = label;
+    btn.onclick = () => {
+      haptic();
+      $$('#tabs .tab').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      renderOptions(m, tabId);
+    };
+    bar.appendChild(btn);
+  });
+  if (tabList.length) renderOptions(m, tabList[0][0]);
+}
+
+function renderOptions(m, tabKey) {
+  S.tab = tabKey;
+  S.sel = 0;
+  const optsList = [];
+
+  if (tabKey === 'video') {
+    if (m.hd) optsList.push({ n: 'HD, No Watermark', b: 'MP4', s: 'Highest crystal resolution', u: m.hd, e: 'mp4', t: 'video/mp4' });
+    if (m.sd && m.sd !== m.hd) optsList.push({ n: 'Standard, No Watermark', b: 'MP4', s: 'Optimized file size', u: m.sd, e: 'mp4', t: 'video/mp4' });
+    if (m.wm) optsList.push({ n: 'With Watermark', b: 'MP4', s: 'Original creator watermark', u: m.wm, e: 'mp4', t: 'video/mp4' });
+  } else if (tabKey === 'photo') {
+    optsList.push(
+      { n: 'All photos (One by one)', b: `${m.images.length} JPGs`, s: 'Saves full set sequentially', k: 'all' },
+      { n: 'All photos as ZIP archive', b: 'ZIP', s: 'Single archive with pure CRC32', k: 'zip' },
+      { n: 'Current viewed slide', b: 'JPG', s: 'Saves active image currently on screen', k: 'one' }
+    );
+  } else if (tabKey === 'audio') {
+    optsList.push({ n: 'Original Soundtrack (HQ)', b: 'MP3', s: m.mTitle, u: m.audio, e: 'mp3', t: 'audio/mpeg' });
+  } else if (tabKey === 'cover') {
+    optsList.push({ n: 'Full-Size Cover Poster', b: 'JPG', s: 'Full-resolution video poster', u: m.cover, e: 'jpg', t: 'image/jpeg' });
+  }
+
+  const container = $('opts');
+  container.innerHTML = '';
+  optsList.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    div.className = 'opt' + (idx === 0 ? ' on' : '');
+    div.innerHTML = `<div><b>${esc(opt.n)}</b><em>${esc(opt.b)}</em><small>${esc(opt.s)}</small></div><span class="dot"></span>`;
+    div.onclick = () => {
+      haptic();
+      $$('.opt').forEach(r => r.classList.remove('on'));
+      div.classList.add('on');
+      S.sel = idx;
+    };
+    container.appendChild(div);
+  });
+  $('dlBtn').onclick = () => { if (optsList[S.sel]) executeDownload(optsList[S.sel]); };
+}
+
+/* PURE JAVASCRIPT STORE ZIP BUILDER */
+const CRC_TABLE = (() => {
+  const table = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    table[i] = c >>> 0;
+  }
+  return table;
+})();
+
+function computeCRC32(bytes) {
+  let c = 0xFFFFFFFF;
+  for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+
+function buildZipBlob(files) {
+  const enc = new TextEncoder();
+  const fileChunks = [], cdEntries = [];
+  let offset = 0;
+
+  for (const f of files) {
+    const nameBytes = enc.encode(f.name);
+    const data = new Uint8Array(f.data);
+    const crc = computeCRC32(data);
+
+    const lh = new Uint8Array(30 + nameBytes.length);
+    const lv = new DataView(lh.buffer);
+    lv.setUint32(0, 0x04034b50, true);
+    lv.setUint16(4, 20, true);
+    lv.setUint16(6, 0x0800, true);
+    lv.setUint16(8, 0, true);
+    lv.setUint32(14, crc, true);
+    lv.setUint32(18, data.length, true);
+    lv.setUint32(22, data.length, true);
+    lv.setUint16(26, nameBytes.length, true);
+    lh.set(nameBytes, 30);
+
+    const cd = new Uint8Array(46 + nameBytes.length);
+    const cv = new DataView(cd.buffer);
+    cv.setUint32(0, 0x02014b50, true);
+    cv.setUint16(4, 20, true);
+    cv.setUint16(6, 20, true);
+    cv.setUint16(8, 0x0800, true);
+    cv.setUint16(10, 0, true);
+    cv.setUint32(16, crc, true);
+    cv.setUint32(20, data.length, true);
+    cv.setUint32(24, data.length, true);
+    cv.setUint16(28, nameBytes.length, true);
+    cv.setUint32(42, offset, true);
+    cd.set(nameBytes, 46);
+
+    fileChunks.push(lh, data);
+    cdEntries.push(cd);
+    offset += lh.length + data.length;
+  }
+
+  let cdSize = 0;
+  cdEntries.forEach(c => { fileChunks.push(c); cdSize += c.length; });
+
+  const eocd = new Uint8Array(22);
+  const ev = new DataView(eocd.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(8, files.length, true);
+  ev.setUint16(10, files.length, true);
+  ev.setUint32(12, cdSize, true);
+  ev.setUint32(16, offset, true);
+  fileChunks.push(eocd);
+
+  return new Blob(fileChunks, { type: 'application/zip' });
+}
+
+/* DOWNLOAD ENGINE WITH ANDROID KODULAR BRIDGE & TIMEOUT SAFETY */
+let finishT;
+function modal(id, show) { $(id).classList.toggle('on', show); }
+function openProg(name) {
+  clearTimeout(finishT);
+  $('pF').textContent = name;
+  $('pB').className = '';
+  $('pB').style.width = '0%';
+  $('pP').textContent = '0%';
+  $('pT').textContent = 'Downloading';
+  $('pX').textContent = T[activeLang]?.btn_cancel || 'Cancel';
+  modal('mProg', true);
+}
+function prog(pct, text) {
+  const bar = $('pB');
+  bar.className = '';
+  bar.style.width = Math.min(100, Math.max(0, pct)) + '%';
+  $('pP').textContent = text || Math.round(pct) + '%';
+}
+function done(success, msg) {
+  clearTimeout(finishT);
+  $('pT').textContent = success ? 'Completed ✓' : 'Notification';
+  $('pP').textContent = msg;
+  $('pX').textContent = T[activeLang]?.btn_close || 'Close';
+  if (success) $('pB').style.width = '100%';
+  toast(msg, !success);
+  finishT = setTimeout(() => modal('mProg', false), 2200);
+}
+$('pX').onclick = () => {
+  haptic();
+  S.cancel = true;
+  S.abort?.abort();
+  modal('mProg', false);
+  S.busy = false;
+};
+
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function saveBlobWithBridge(blob, filename, mimeType) {
+  const b = bridge();
+  if (b && b.saveBase64) {
+    try {
+      const b64 = await blobToBase64(blob);
+      b.saveBase64(b64, filename, mimeType);
+      return 'native_b64';
+    } catch(e) {}
+  }
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { a.remove(); URL.revokeObjectURL(url); }, 18000);
+  return 'blob_saved';
+}
+
+async function streamBlob(url, onProgress) {
+  S.abort = new AbortController();
+  const res = await fetch(url, { signal: S.abort.signal });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const total = +res.headers.get('content-length') || 0;
+  if (!res.body || !res.body.getReader) return res.blob();
+  const reader = res.body.getReader();
+  const chunks = [];
+  let received = 0;
+  while (true) {
+    const { done: streamDone, value } = await reader.read();
+    if (streamDone) break;
+    chunks.push(value);
+    received += value.length;
+    if (total) onProgress((received / total) * 100);
+    else onProgress(-1);
+  }
+  return new Blob(chunks);
+}
+
+async function transferOne(url, filename, mimeType) {
+  const b = bridge();
+  if (b && b.downloadMedia) {
+    try { b.downloadMedia(url, filename, mimeType); return 'native'; } catch (e) {}
+  }
+  try {
+    const blob = await streamBlob(url, pct => {
+      if (pct < 0) { $('pB').className = 'ind'; $('pP').textContent = 'Transferring…'; }
+      else prog(pct);
+    });
+    await saveBlobWithBridge(blob, filename, mimeType);
+    return 'saved';
+  } catch (err) {
+    if (S.cancel) throw err;
+    const win = window.open(url, '_blank', 'noopener');
+    if (!win || win.closed || typeof win.closed === 'undefined') {
+      toast('Popup was blocked by your browser. Please allow popups.', true);
+    }
+    return 'opened';
+  }
+}
+
+async function executeDownload(opt) {
+  if (S.busy) return;
+  const m = S.media;
+  if (!m) return;
+  haptic();
+  S.busy = true;
+  S.cancel = false;
+  const user = fname(m.username || 'creator');
+  const basePrefix = `TikVault_${user}_${m.id}`;
+
+  try {
+    if (opt.k === 'one') {
+      const liveIdx = S.slide;
+      const targetUrl = m.images[liveIdx] || m.images[0];
+      const name = `${basePrefix}_slide_${liveIdx + 1}.jpg`;
+      openProg(name);
+      const res = await transferOne(targetUrl, name, 'image/jpeg');
+      done(true, res === 'opened' ? 'Opened in a new tab — save it from there' : 'Photo downloaded!');
+    } else if (opt.k === 'all') {
+      openProg('Photos (Batch Sequential)');
+      const total = m.images.length;
+      for (let i = 0; i < total && !S.cancel; i++) {
+        prog((i / total) * 100, `Photo ${i + 1} of ${total}`);
+        await transferOne(m.images[i], `${basePrefix}_${i + 1}.jpg`, 'image/jpeg');
+        await new Promise(r => setTimeout(r, 400));
+      }
+      if (!S.cancel) done(true, 'All photos downloaded');
+    } else if (opt.k === 'zip') {
+      openProg(`${basePrefix}.zip`);
+      const fileData = [];
+      const total = m.images.length;
+      for (let i = 0; i < total && !S.cancel; i++) {
+        prog((i / total) * 90, `Compressing ${i + 1} of ${total}`);
+        try {
+          const res = await fetch(m.images[i]);
+          fileData.push({ name: `Photo_${String(i + 1).padStart(2, '0')}.jpg`, data: await res.arrayBuffer() });
+        } catch (e) {}
+      }
+      if (S.cancel) return;
+      if (!fileData.length) {
+        done(false, 'Cross-origin blocked direct ZIP. Use "One by one" option.');
+      } else {
+        const zipBlob = buildZipBlob(fileData);
+        await saveBlobWithBridge(zipBlob, `${basePrefix}.zip`, 'application/zip');
+        done(true, `ZIP archive saved (${fileData.length}/${total} photos)`);
+      }
+    } else {
+      const filename = `${basePrefix}_${S.tab}.${opt.e}`;
+      openProg(filename);
+      const res = await transferOne(opt.u, filename, opt.t);
+      if (S.set.saveCover && m.cover && S.tab === 'video' && !S.cancel) {
+        await transferOne(m.cover, `${basePrefix}_cover.jpg`, 'image/jpeg');
+      }
+      if (res !== 'native') {
+        done(true, res === 'opened' ? 'Opened in a new tab — save it from there' : 'Download completed');
+      }
+    }
+  } catch (err) {
+    if (!S.cancel) done(false, 'Download error. Please retry or choose standard quality.');
+  }
+  S.busy = false;
+}
+
+/* HISTORY & FAVORITES */
+function makeStorageItem(m, src) {
+  return { id: m.id, author: m.author, username: m.username, caption: m.caption, cover: m.cover, src, type: m.images.length ? 'photo' : 'video' };
+}
+function saveToHistory(m, src) {
+  let list = LS.get(K.H, []).filter(x => x.id !== m.id);
+  list.unshift(makeStorageItem(m, src));
+  LS.set(K.H, list.slice(0, 40));
+}
+function updateHeartState() {
+  const isFav = S.media && LS.get(K.F, []).some(x => x.id === S.media.id);
+  const heart = $('heart');
+  heart.style.fill = isFav ? 'var(--a1)' : 'none';
+  heart.style.stroke = isFav ? 'var(--a1)' : 'currentColor';
+}
+$('fav').onclick = () => {
+  haptic();
+  if (!S.media) return;
+  let favList = LS.get(K.F, []);
+  if (favList.some(x => x.id === S.media.id)) {
+    favList = favList.filter(x => x.id !== S.media.id);
+    toast('Removed from favorites');
+  } else {
+    favList.unshift(makeStorageItem(S.media, S.srcUrl || $('url').value.trim()));
+    toast('Saved to favorites');
+  }
+  LS.set(K.F, favList);
+  updateHeartState();
+};
+
+let histFilter = 'all';
+function drawList(target) {
+  const isHist = target === 'hist';
+  const grid = $(isHist ? 'hg' : 'fg');
+  const empty = $(isHist ? 'he' : 'fe');
+  const query = ($(isHist ? 'hq' : 'fq').value || '').toLowerCase();
+  let items = LS.get(isHist ? K.H : K.F, []);
+
+  if (isHist && histFilter !== 'all') items = items.filter(x => x.type === histFilter);
+  if (query) items = items.filter(x => [x.author, x.username, x.caption].join(' ').toLowerCase().includes(query));
+
+  grid.innerHTML = '';
+  empty.style.display = items.length ? 'none' : 'block';
+  grid.style.display = items.length ? 'grid' : 'none';
+
+  items.forEach(it => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    if (it.cover) {
+      const img = document.createElement('img');
+      img.src = it.cover;
+      img.alt = '';
+      img.loading = 'lazy';
+      img.referrerPolicy = 'no-referrer';
+      card.appendChild(img);
+    }
+    const ov = document.createElement('div');
+    ov.className = 'ov';
+    const au = document.createElement('div');
+    au.className = 'au';
+    au.textContent = it.author;
+    ov.appendChild(au);
+    card.appendChild(ov);
+
+    const ty = document.createElement('div');
+    ty.className = 'ty';
+    ty.textContent = it.type;
+    card.appendChild(ty);
+
+    const rm = document.createElement('button');
+    rm.className = 'rm';
+    rm.textContent = '✕';
+    rm.setAttribute('aria-label', 'Remove item');
+    rm.onclick = ev => {
+      ev.stopPropagation();
+      haptic();
+      const storeKey = isHist ? K.H : K.F;
+      LS.set(storeKey, LS.get(storeKey, []).filter(y => y.id !== it.id));
+      drawList(target);
+    };
+    card.appendChild(rm);
+
+    card.onclick = () => {
+      $('url').value = it.src;
+      $('clear').style.display = '';
+      view('home');
+      analyze();
+    };
+    grid.appendChild(card);
+  });
+}
+
+$$('#hf .chip').forEach(chip => {
+  chip.onclick = () => {
+    haptic();
+    $$('#hf .chip').forEach(c => c.classList.remove('on'));
+    chip.classList.add('on');
+    histFilter = chip.dataset.f;
+    drawList('hist');
+  };
+});
+$('hq').oninput = () => drawList('hist');
+$('fq').oninput = () => drawList('fav');
+
+/* QR CODE TRANSFER */
+function getQrBaseUrl() {
+  const manual = (S.set.appUrl || '').trim();
+  if (/^https?:\/\//i.test(manual)) return manual.split('#')[0].split('?')[0];
+  if (/^https?:$/.test(location.protocol)) return location.origin + location.pathname;
+  return '';
+}
+function generateQrInfo() {
+  const currentSrc = S.srcUrl || extractLink($('url').value);
+  const directFile = S.media && (S.media.hd || S.media.sd || S.media.cover) || '';
+
+  if (S.qr === 'page') {
+    const base = getQrBaseUrl();
+    if (base && checkUrl(currentSrc).ok) {
+      return { url: `${base}?url=${encodeURIComponent(currentSrc)}`, desc: 'Scan with another phone. TikVault opens with this media ready to download.' };
+    }
+    if (directFile) {
+      return { url: directFile, desc: 'No public App Address configured in Settings. QR opens raw video stream directly.' };
+    }
+    return { url: '', desc: 'Analyze a video first to beam it to another smartphone.' };
+  }
+  if (S.qr === 'link') {
+    return { url: checkUrl(currentSrc).ok ? currentSrc : '', desc: checkUrl(currentSrc).ok ? 'Scan to view this original post on TikTok.' : 'Paste a TikTok link first.' };
+  }
+  return { url: directFile, desc: directFile ? 'Scan to directly play/save raw file stream on external device.' : 'Analyze a link first.' };
+}
+
+function qrUpdate() {
+  const info = generateQrInfo();
+  $('qD').textContent = info.desc;
+  const qrImg = $('qImg');
+  if (info.url) {
+    qrImg.style.visibility = 'visible';
+    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=2&data=${encodeURIComponent(info.url)}`;
+  } else {
+    qrImg.style.visibility = 'hidden';
+  }
+}
+function setQrMode(mode) {
+  haptic();
+  S.qr = mode;
+  $$('#v-qr .tab').forEach(b => b.classList.remove('on'));
+  $({ page: 'qP', link: 'qL', file: 'qT' }[mode]).classList.add('on');
+  qrUpdate();
+}
+$('qP').onclick = () => setQrMode('page');
+$('qL').onclick = () => setQrMode('link');
+$('qT').onclick = () => setQrMode('file');
+$('qSave').onclick = async () => {
+  haptic();
+  const info = generateQrInfo();
+  if (!info.url) { toast('No QR code to save yet', true); return; }
+  const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=2&data=${encodeURIComponent(info.url)}`;
+  try {
+    const res = await fetch(qrApi);
+    await saveBlobWithBridge(await res.blob(), 'TikVault_QR.png', 'image/png');
+    toast('QR Code saved');
+  } catch (e) {
+    window.open(qrApi, '_blank');
+  }
+};
+$('qShare').onclick = () => {
+  haptic();
+  const info = generateQrInfo();
+  if (!info.url) { toast('No URL ready to share', true); return; }
+  if (navigator.share) navigator.share({ title: 'TikVault Transfer', url: info.url }).catch(() => {});
+  else copy(info.url, 'Transfer URL copied!');
+};
+
+/* BATCH MODE ENGINE */
+let batchItems = [];
+$('bStart').onclick = async () => {
+  haptic();
+  const text = $('batchInput').value;
+  const urls = text.split('\n').map(extractLink).filter(u => checkUrl(u).ok);
+  if (!urls.length) { toast('Paste at least one valid TikTok URL', true); return; }
+
+  const list = $('qList');
+  list.innerHTML = '';
+  batchItems = [];
+  $('bDownloadAll').style.display = 'none';
+
+  urls.forEach((url, i) => {
+    const item = document.createElement('div');
+    item.className = 'q-item';
+    item.id = `q_row_${i}`;
+
+    const img = document.createElement('img');
+    img.id = `q_img_${i}`;
+    img.style.display = 'none';
+    item.appendChild(img);
+
+    const info = document.createElement('div');
+    const b = document.createElement('b');
+    b.id = `q_t_${i}`;
+    b.textContent = url;
+    info.appendChild(b);
+
+    const sm = document.createElement('small');
+    sm.id = `q_s_${i}`;
+    sm.textContent = 'Queued…';
+    info.appendChild(sm);
+
+    const actions = document.createElement('div');
+    actions.id = `q_a_${i}`;
+    actions.style.marginTop = '6px';
+    actions.style.display = 'flex';
+    actions.style.gap = '6px';
+    info.appendChild(actions);
+
+    item.appendChild(info);
+    list.appendChild(item);
+
+    batchItems.push({ url, state: 'queued', data: null });
+  });
+
+  for (let i = 0; i < batchItems.length; i++) {
+    await processBatchRow(i);
+    if (i < batchItems.length - 1) {
+      await new Promise(r => setTimeout(r, 1200));
+    }
+  }
+
+  const hasReady = batchItems.some(x => x.state === 'ready');
+  if (hasReady) $('bDownloadAll').style.display = 'flex';
+};
+
+async function processBatchRow(i) {
+  const it = batchItems[i];
+  const statusEl = $(`q_s_${i}`);
+  const titleEl = $(`q_t_${i}`);
+  const actEl = $(`q_a_${i}`);
+  const imgEl = $(`q_img_${i}`);
+
+  statusEl.textContent = 'Fetching media…';
+  statusEl.style.color = 'var(--mu)';
+  actEl.innerHTML = '';
+
+  try {
+    let data;
+    try {
+      data = await fetchMediaData(it.url);
+    } catch(err) {
+      await new Promise(r => setTimeout(r, 2000));
+      data = await fetchMediaData(it.url);
+    }
+
+    it.data = data;
+    it.state = 'ready';
+    titleEl.textContent = `${data.author}: ${data.caption || 'Media'}`;
+    statusEl.textContent = data.images.length ? `Ready (${data.images.length} Photos)` : 'Ready (HD Video)';
+
+    if (data.cover) {
+      imgEl.src = data.cover;
+      imgEl.style.display = 'block';
+    }
+
+    if (data.images.length) {
+      const btnAll = document.createElement('button');
+      btnAll.className = 'pill';
+      btnAll.textContent = 'Save Photos';
+      btnAll.onclick = () => {
+        S.media = data;
+        executeDownload({ k: 'all' });
+      };
+      actEl.appendChild(btnAll);
+    } else {
+      const btnVid = document.createElement('button');
+      btnVid.className = 'pill';
+      btnVid.textContent = 'Save Video';
+      btnVid.onclick = () => {
+        S.media = data;
+        executeDownload({ u: data.hd || data.sd, e: 'mp4', t: 'video/mp4' });
+      };
+      actEl.appendChild(btnVid);
+    }
+
+    if (data.audio) {
+      const btnAud = document.createElement('button');
+      btnAud.className = 'pill';
+      btnAud.textContent = 'MP3';
+      btnAud.onclick = () => {
+        S.media = data;
+        executeDownload({ u: data.audio, e: 'mp3', t: 'audio/mpeg' });
+      };
+      actEl.appendChild(btnAud);
+    }
+  } catch(e) {
+    it.state = 'failed';
+    statusEl.textContent = 'Failed: ' + e.message;
+    statusEl.style.color = 'var(--red)';
+    const btnRetry = document.createElement('button');
+    btnRetry.className = 'pill';
+    btnRetry.textContent = 'Retry';
+    btnRetry.onclick = () => processBatchRow(i);
+    actEl.appendChild(btnRetry);
+  }
+}
+
+$('bDownloadAll').onclick = async () => {
+  haptic();
+  const readyRows = batchItems.filter(x => x.state === 'ready' && x.data);
+  if (!readyRows.length) return;
+  for (let idx = 0; idx < readyRows.length; idx++) {
+    if (S.cancel) break;
+    const d = readyRows[idx].data;
+    S.media = d;
+    if (d.images.length) {
+      await executeDownload({ k: 'all' });
+    } else {
+      await executeDownload({ u: d.hd || d.sd, e: 'mp4', t: 'video/mp4' });
+    }
+    await new Promise(r => setTimeout(r, 600));
+  }
+};
+
+/* SHARE MODAL */
+$('share').onclick = () => { haptic(); modal('mShare', true); };
+$('shX').onclick = () => modal('mShare', false);
+$('shL').onclick = () => {
+  const u = S.srcUrl || extractLink($('url').value);
+  if (navigator.share) navigator.share({ title: S.media?.author || 'TikTok', text: S.media?.caption || '', url: u }).catch(() => {});
+  else copy(u, 'TikTok link copied!');
+  modal('mShare', false);
+};
+$('shS').onclick = () => {
+  if (S.media) copy(S.media.hd || S.media.sd || S.media.cover || '', 'Direct file stream URL copied!');
+  modal('mShare', false);
+};
+
+/* SETTINGS & THEMES */
+function applySettings() {
+  document.documentElement.dataset.theme = S.set.theme;
+  document.documentElement.dataset.mode = S.set.mode;
+  document.body.classList.toggle('rm', S.set.reduceMotion);
+
+  $$('.si[data-s]').forEach(b => {
+    b.querySelector('.sw').classList.toggle('on', !!S.set[b.dataset.s]);
+  });
+  $$('#themes i').forEach(i => i.classList.toggle('on', i.dataset.t === S.set.theme));
+
+  const isLight = S.set.mode === 'light';
+  $('modeIcon').innerHTML = isLight
+    ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
+    : '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
+
+  const bgHex = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#07070a';
+  document.querySelector('meta[name="theme-color"]').content = bgHex;
+
+  cachedThemeRGB = getComputedStyle(document.documentElement).getPropertyValue('--ar').trim() || '212, 175, 55';
+  if (!S.set.reduceMotion) startDust();
+}
+
+$$('.si[data-s]').forEach(btn => {
+  btn.onclick = () => {
+    haptic();
+    const key = btn.dataset.s;
+    S.set[key] = !S.set[key];
+    LS.set(K.S, S.set);
+    applySettings();
+  };
+});
+
+Object.entries(THEMES).forEach(([themeKey, hex]) => {
+  const sw = document.createElement('i');
+  sw.dataset.t = themeKey;
+  sw.style.setProperty('--c', hex);
+  sw.title = themeKey;
+  sw.onclick = () => {
+    haptic();
+    S.set.theme = themeKey;
+    LS.set(K.S, S.set);
+    applySettings();
+  };
+  $('themes').appendChild(sw);
+});
+
+$('btnTheme').onclick = () => {
+  haptic();
+  const keys = Object.keys(THEMES);
+  S.set.theme = keys[(keys.indexOf(S.set.theme) + 1) % keys.length];
+  LS.set(K.S, S.set);
+  applySettings();
+  toast('Theme: ' + S.set.theme);
+};
+
+$('btnMode').onclick = () => {
+  haptic();
+  S.set.mode = S.set.mode === 'dark' ? 'light' : 'dark';
+  LS.set(K.S, S.set);
+  applySettings();
+};
+
+$('btnLang').onclick = () => { haptic(); modal('mLang', true); };
+$$('#mLang [data-l]').forEach(btn => {
+  btn.onclick = () => {
+    haptic();
+    setLang(btn.dataset.l);
+    modal('mLang', false);
+  };
+});
+
+$('btnTour').onclick = () => { haptic(); modal('mTour', true); };
+$('tourClose').onclick = () => { haptic(); modal('mTour', false); };
+
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    $$('.mb.on').forEach(m => {
+      if (m.id !== 'mProg') m.classList.remove('on');
+    });
+  }
+});
+
+$$('.mb').forEach(m => {
+  m.addEventListener('click', e => {
+    if (e.target === m && m.id !== 'mProg') m.classList.remove('on');
+  });
+});
+
+$('ping').onclick = async () => {
+  haptic();
+  const label = $('pingR');
+  label.textContent = 'Pinging…';
+  const start = performance.now();
+  const ac = new AbortController();
+  const to = setTimeout(() => ac.abort(), 7000);
+  try {
+    await fetch(API[0], { mode: 'no-cors', signal: ac.signal });
+    const latency = Math.round(performance.now() - start);
+    label.textContent = `${latency} ms · Connected`;
+    label.style.color = 'var(--ok)';
+  } catch (e) {
+    label.textContent = 'Unreachable';
+    label.style.color = 'var(--red)';
+  }
+  clearTimeout(to);
+};
+
+function updateStorageSize() {
+  try {
+    let bytes = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('tv6_')) {
+        bytes += (localStorage.getItem(k)?.length || 0) * 2;
+      }
+    }
+    $('stgSize').textContent = `${(bytes / 1024).toFixed(1)} KB (TikVault keys)`;
+  } catch(e) {
+    $('stgSize').textContent = 'Storage unavailable';
+  }
+}
+
+$('exportData').onclick = async () => {
+  haptic();
+  const payload = {
+    app: 'TikVault',
+    version: '6.4',
+    history: LS.get(K.H, []),
+    favorites: LS.get(K.F, []),
+    settings: S.set
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  await saveBlobWithBridge(blob, 'TikVault_Backup.json', 'application/json');
+  toast('Settings and history exported');
+};
+
+$('importData').onclick = () => { haptic(); $('importInput').click(); };
+$('importInput').onchange = e => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const parsed = JSON.parse(ev.target?.result);
+      if (parsed && typeof parsed === 'object') {
+        if (Array.isArray(parsed.history)) LS.set(K.H, parsed.history);
+        if (Array.isArray(parsed.favorites)) LS.set(K.F, parsed.favorites);
+        if (parsed.settings && typeof parsed.settings === 'object') {
+          Object.assign(S.set, parsed.settings);
+          LS.set(K.S, S.set);
+        }
+        applySettings();
+        updateStorageSize();
+        toast('Backup restored successfully!');
+      } else throw new Error();
+    } catch(err) {
+      toast('Invalid backup JSON file', true);
+    }
+  };
+  reader.readAsText(file);
+  $('importInput').value = '';
+};
+
+$('clrHist').onclick = () => {
+  haptic();
+  LS.set(K.H, []);
+  toast('History cleared');
+  updateStorageSize();
+  drawList('hist');
+};
+$('clrFav').onclick = () => {
+  haptic();
+  LS.set(K.F, []);
+  updateHeartState();
+  toast('Favorites cleared');
+  updateStorageSize();
+  drawList('fav');
+};
+
+/* QUICK ACTIONS */
+$('qaOpen').onclick = () => {
+  haptic();
+  const u = S.srcUrl || extractLink($('url').value);
+  u ? window.open(u, '_blank', 'noopener') : toast('No link analyzed', true);
+};
+$('qaCopy').onclick = () => {
+  const u = S.srcUrl || extractLink($('url').value);
+  u ? copy(u, 'Original TikTok link copied') : toast('No link analyzed', true);
+};
+$('qaFile').onclick = () => {
+  const m = S.media;
+  const u = m && (m.hd || m.sd || m.wm || m.images[0]);
+  u ? copy(u, 'Direct media stream URL copied') : toast('Analyze a link first', true);
+};
+
+$('appUrl').oninput = e => {
+  S.set.appUrl = e.target.value.trim();
+  LS.set(K.S, S.set);
+};
+
+/* OPTIMIZED DUST PARTICLES */
+const cv = $('dust'), cx = cv.getContext('2d');
+let particles = [], isDustRunning = false, cachedThemeRGB = '212, 175, 55';
+function resizeCanvas() { cv.width = innerWidth; cv.height = innerHeight; }
+window.addEventListener('resize', resizeCanvas);
+
+const makeParticle = () => ({
+  x: Math.random() * cv.width, y: Math.random() * cv.height,
+  r: Math.random() * 1.5 + 0.5, a: Math.random() * 0.4 + 0.1,
+  vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
+  life: 0, maxLife: Math.random() * 240 + 120
+});
+
+function startDust() {
+  if (isDustRunning || S.set.reduceMotion) return;
+  isDustRunning = true;
+  resizeCanvas();
+  particles = Array.from({ length: 26 }, makeParticle);
+  requestAnimationFrame(tickDust);
+}
+
+function tickDust() {
+  if (S.set.reduceMotion || document.hidden) {
+    cx.clearRect(0, 0, cv.width, cv.height);
+    isDustRunning = false;
+    return;
+  }
+  cx.clearRect(0, 0, cv.width, cv.height);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (++p.life > p.maxLife || p.x < 0 || p.y < 0 || p.x > cv.width || p.y > cv.height) {
+      Object.assign(p, makeParticle());
+    }
+    cx.beginPath();
+    cx.arc(p.x, p.y, p.r, 0, 6.283);
+    cx.fillStyle = `rgba(${cachedThemeRGB}, ${p.a})`;
+    cx.fill();
+  });
+  requestAnimationFrame(tickDust);
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && !S.set.reduceMotion) startDust();
+});
+
+/* DEVELOPER PHOTO INITIALIZATION WITH TRIPLE FALLBACK */
+const avatarImg = $('devAvatar');
+const avatarFb = $('devFallback');
+
+avatarImg.onerror = () => {
+  // If online link fails, try embedded base64; if that fails too, show initials
+  if (avatarImg.src !== DEV_PHOTO_B64) {
+    avatarImg.src = DEV_PHOTO_B64;
+  } else {
+    avatarImg.style.display = 'none';
+    avatarFb.style.display = 'grid';
+  }
+};
+// Use developer's provided photo URL directly
+avatarImg.src = DEV_PHOTO_URL;
+
+/* INITIALIZATION */
+window.addEventListener('DOMContentLoaded', () => {
+  applySettings();
+  setLang(LS.get(K.L, 'en'));
+  $('bridge').textContent = bridge() ? 'Active (Android / Kodular)' : 'Standard Web Browser';
+  $('appUrl').value = S.set.appUrl || '';
+
+  const tourSeen = LS.get(K.T, false);
+  if (!tourSeen) {
+    modal('mTour', true);
+    LS.set(K.T, true);
+  }
+
+  const params = new URLSearchParams(location.search);
+  const deepUrl = params.get('url');
+  if (deepUrl) {
+    $('url').value = deepUrl;
+    $('clear').style.display = '';
+    analyze();
+  } else {
+    setTimeout(checkClipboard, 500);
+  }
+});
+</script>
+</body>
+</html>
